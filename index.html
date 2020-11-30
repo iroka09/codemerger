@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+ <head>
+	 <title>Untitled</title>
+	 <meta charset="UTF-8"/>
+	 <meta name= "viewport" content= "width=device-width; initial-scale=1; user-scalable=no">
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+	 <style>
+	 body{
+	 --myblue: #08f; 
+	 margin:0;
+	 font-family: arial sans-serif
+	 }
+	
+	 .menu{
+	 display:flex;
+	 position: sticky; 
+	 top:0;
+	 height:60px;
+	 align-items:center;
+	 justify-content: space-between;
+	 padding: 0 20px; 
+	 font-size: 1.5em; 
+	 color: #555;
+	 background	: #fff; 
+	 z-index:12;
+	 opacity: 0.8;
+	 }
+	
+	.menu-links{
+	display:flex;
+	list-style: none; 
+	font-size: .8em; 
+	Justify-content: space-around;
+	}
+	
+		.menu-links li{
+		margin:0 12px
+		}
+		
+		@media (max-width:600px) {
+			.menu-links{
+			display: none; 
+			}
+		}
+	 
+	 .bar {
+	 display:flex;
+	 position:fixed;
+	 flex-direction: column; 
+	 flex-wrap: wrap; 
+	 top:0;
+    right: 0;
+	 height:100vh;
+	 width:0;
+	 background: dodgerblue; 
+	 opacity: 0;
+	 box-shadow: -1px 0 14px dodgerblue;
+	 z-index:14;
+	 transition: .6s ; 
+	 color: rgba(255,255,255,0.7);
+	 will-change: width, opacity;
+	 }
+	 
+	 .bar.active {
+	width: 100vw;
+	 opacity: .9;
+	 will-change: opacity, transform;
+	 }
+	 
+	 
+	 @media (min-width:600px)  {
+	 .fa-bars {
+	 display:none;
+	   }
+	 }
+	 
+	
+
+	 .close{
+	 display:block;
+	 margin:20px 10px 30px auto;
+	 background: none; 
+	 border: 0;
+	 font-size: 2em; 
+	 color: #222;
+	 outline:0;
+	 }
+	 .bar-links{
+	 list-style-type:none;
+	 padding:0;
+	 }
+	 .bar-links li{
+	 margin-bottom:15px; 
+	 display:block;
+	 text-align:center;
+	 font-size: 2em; 
+	 }
+
+	    
+	    /*CAROUSEL*/
+	    .caro{
+	    margin: 0 0 50px;
+	    height: 200px; 
+	    width: 100%;
+	    border: 1px solid #aaa; 
+	    position: relative; 
+	    overflow: hidden; 
+	    }
+	    
+	    .caro .caro-item{
+	    width:100%;
+	    height:100%;
+	    opacity: 0;
+	    object-fit: cover; 
+	    position:absolute;
+	    transform: scale(1);
+	    text-align:center;
+	    transition: 2s; 
+	    will-change: opacity, transform;
+	    }
+	    
+	   .caro .caro-item.active{ 
+	    opacity: 1;
+	    transform: scale(1.2);
+	    }
+	    .caro .list {
+	    position: absolute;
+	    top:4px;
+	    left: 6px; 
+	    text-shadow: 1px 1px 0 #fff; 
+	    z-index: 1;
+	    font-size: 1.2em;
+	    font-weight: 300
+	    }
+	    
+	    .caro-indicators{
+	    position: absolute; 
+	    bottom: 9px; 
+	    display:flex; 
+	    flex-flow: row; 
+	    width:100%;
+	    Justify-content: center; 
+	    z-index: 2;
+	    opacity: .7;
+	    }
+	    
+	      .caro-controls, .caro-indicators{
+	    list-style-type: none;
+	    padding:0; 
+	    }
+	    
+	    .caro-controls{
+	    position: absolute;
+	    top:-10px;
+	    left:0;
+	    display:flex;
+	    height: 100%;
+	    width:100%;
+	    align-items:center;
+	    Justify-content: space-between;
+	    opacity: .7;
+	    }
+	      .caro-controls li{
+	      margin: 0 12px; 
+	      color: dodgerblue; 
+	      }
+	     .caro-indicators li{
+	    margin: 0 9px; 
+	    display:block;
+	    border-radius:50%;
+	    background: #aaa; 
+	    width:15px;
+	    opacity: .8;
+	    height:15px;
+	    transition: .5s; 
+	    }
+	      .caro-indicators li.active{
+	      background: dodgerblue;
+ 	      }
+ 	      
+ 	      
+ 	        .flex-img-cont {
+	    	    background: #f8f8f8;
+	    	    padding: 5px; 
+	    	    }
+	    	    
+	    	    
+	    @media (min-width:600px){
+	    .flex-img-cont {
+	    display: flex; 
+	    flex-wrap: wrap; 
+	    Justify-content: space-evenly;
+	      }
+	        	.flex-img-cont div{
+	    	    width: 45%;
+	    	    }
+	    }
+ 	      
+ 	      
+ 	   .card-cont{
+	  background: #fff; 
+	  width: 82%;
+	  height: 400px; 
+	  margin: 50px auto; 
+	  padding: 0 0 30px;
+	  overflow: hiddn; 
+	  border-radius:5px;
+	  box-shadow: 2px 4px 40px #ccc; 
+	  display: flex; 
+	  color: #555; 
+	  flex-flow: wrap;  
+	  }
+	 
+	    .card-cont img {
+	    display:block;
+	    height: 40%;
+	    width:100%;  
+	    object-fit: cover; 
+	    transition: .6s; 
+	    pointer-events: auto;
+	    }
+	    
+	    .card-body {
+	    position: relative;	
+	    height: 60%;
+	    padding: 7px; 
+	    width:90%;
+	    margin: auto; 
+	    text-align:center;
+	    transition: .3s; 
+	    font-size: 1.1em;
+	    }
+	    
+	  .card-btn{
+	  text-decoration: none; 
+	  display:inline-block;
+	  color: var(--myblue);
+	  font-size: 1em; 
+	  background: white;
+	  border: 2px solid var(--myblue) ; 
+	  text-align:center;
+	  border-radius: 4px; 
+	  font-weight: bold; 
+	  margin: 25px auto; 
+	  padding: 10px 30px;
+	  transition: .2s; 
+	  white-space: nowrap; 
+	  }
+	    
+	       .card-btn:hover{
+	    box-shadow: 0 0 0 1px var(--myblue) 
+	    }
+	    
+	      .card-btn:active{
+	    background: var(--myblue); 
+	    color: white; 
+	    }
+	    	  
+	    	.card-body:hover {
+	    	color: var(--myblue); 
+	    	}
+	    	  
+	    	  .footer{
+	    	  height: 200px; 
+	    	  background: var(--myblue); 
+	    	  color:white;
+	    	  }
+	 </style>
+ </head>
+	 <body>
+	<div  class="menu">
+	<div  class="log">LOGO</div>
+	<ul  class="menu-links">
+	<li>Portfolio</li>
+	<li>Profile</li>
+	<li>About</li>
+	</ul>
+	<div  class="fa fa-bars"></div>
+	</div>
+	
+	<div  class="bar">
+	<button  class="close" >&times;</button>
+	<ul  class="bar-links">
+	<li>Portfolio</li>
+	<li>Profile</li>
+	<li>About</li>
+	</ul>
+	</div>
+	
+	
+
+	
+	<div  class="caro" data-interval="3" data-delay="0" data-autoride="next">	
+	<span  class="list"></span>
+	<img  src= "pic3.jpg"  class="active caro-item" />
+	<h1  class="caro-item"> hello world</h1>
+	<img  src= "img1.png" class="caro-item"/>
+	<img  src= "pic2.jpg" class="caro-item" />
+	<img  src= "pic1.jpg" class="caro-item"/>
+	<ul  class="caro-controls">
+	<li  class="fa fa-lg fa-chevron-circle-left" data-parent = "#caro" data-slide="prev"></li>
+	<li  class="fa fa-lg fa-chevron-circle-right" data-parent = "#caro" data-slide="next"></li>
+	</ul>
+	<ul class="caro-indicators">
+	<li  class="active" data-slideTo="0" data-target="#caro"></li>
+	<li data-slideTo="1" data-target="#caro"></li>
+	<li data-slideTo="2" data-target="#caro"></li>
+	<li data-slideTo="3" data-target="#caro"></li>
+	<li data-slideTo="4" data-target="#caro"></li>
+	</ul>
+	</div>
+
+
+	<div  class="flex-img-cont">
+	
+	<div  class="card-cont">
+	<img src= "pic1.jpg" />
+	<div  class="card-body">
+	<h3>Landscape</h3>
+Landscape is beautiful graphic view. Televisions make use of landcape, desktops and laptops also make use of it. landscape is best for movies.
+	<a href="" class="card-btn">See more</a>
+	</div>
+	</div>
+	
+	<div  class="card-cont">
+	<img src= "pic2.jpg" />
+	<div  class="card-body">
+	<h3>Holidays</h3>
+Landscape is beautiful graphic view. Televisions make use of landcape, desktops and laptops also make use of it. landscape is best for movies.
+	<a href="" class="card-btn">See more</a>
+	</div>
+	</div>
+	
+	<!-- Card end -->
+	</div>
+	
+	
+	<div  class="footer">
+	
+	<div  class="social-media social-media-footer">
+	<a  class="fa fa-lg fa-facebook"></a>
+	<a href="https://wa.link/b8uelg" target="_blank"  class="fa  fa-lg fa-whatsapp" ></a>
+	</div>
+	</div>
+	<script>
+	
+	
+	
+	$(function() {
+	
+	//CAROUSEL
+	class Carousel {
+	 constructor(images, max, list, btns, speed, ride = false)  { 	
+ this.index = 0;
+ this.max = max-1;
+ this.list = list; 
+ this.speed = speed
+ this.images = images;
+ this.btns = btns; 
+this.interval = setInterval;
+this.ride = ride;
+   }
+slide(x) {
+	if(x == "prev") {
+	this.index = (this	.index===0)? this.max : this.index-1; 
+	this.render(this.index);
+	return 
+	}
+	this.index = (this.index===this.max)? 0 : this.index+1; 
+	this.render(this.index);
+}
+slideTo(num){
+this.index = num; 
+this.render(num);
+	 }
+	 render(i) {
+	 clearTimeout(this.timer)
+	 //images
+	 this.images.forEach((img)=>{
+	 img.classList.remove("active");
+	 })
+	 this.images[i].classList.add("active");	 
+	 //navigators
+	 this.btns.forEach((btn)=>{
+	 btn.classList.remove("active");
+	 })
+	 this.btns[i].classList.add("active");	 
+	 this.list.innerHTML = i+1 +"/"+(this.max+1);
+	 this.ride && this.startTimer(this.ride)
+	 }
+	 startTimer(ride) {	  
+	 this.timer = setTimeout(()=>this.slide(ride), this.speed)
+	 }
+}
+	//end carousel constructor
+	
+	
+	
+	
+	//CAROUSEL INIT
+document.
+querySelectorAll(".caro")
+.forEach((caro) => {
+
+let speed = $(caro).attr("data-interval");
+let delay= caro.getAttribute("data-delay");
+let ride= caro.getAttribute("data-autoride").trim();
+
+let images = caro.querySelectorAll(".caro-item");
+let list = caro.querySelector(".list");
+let btns = caro.querySelectorAll(".caro-indicators li"); 
+
+let carousel = new Carousel(
+images, 
+images.length,
+list, 
+ btns, 
+ speed*1000,
+ ride
+ );
+ 
+ list.innerHTML = "1/"+(images.length);
+ 
+caro.querySelectorAll("[data-slide]")
+.forEach((ele,i)=>{
+let attr = ele.getAttribute("data-slide");
+ele.addEventListener("click", (e)=>{
+carousel.slide(attr);
+   })
+})
+caro.querySelectorAll("[data-slideTo]")
+.forEach((ele,i)=>{
+let num = ele.getAttribute("data-slideTo");
+ele.addEventListener("click", (e)=>{
+carousel.slideTo(parseInt(num));
+   })
+})
+setTimeout(()=>{
+ride && carousel.startTimer(ride)
+}, delay*1000);
+
+	})
+	
+//carousel ended. 	
+	
+	
+	$(".fa-bars").click((e) => {	
+	  e.stopImmediatePropagation()
+	$(".bar").addClass("active");
+	   })
+	   
+	   $(".close").click((e) => {
+	$(".bar").removeClass("active");
+	   })
+	   
+	 
+	
+	})
+	 
+	 
+	</script>
+	 </body>
+ </html>
