@@ -3,7 +3,7 @@
 	 <title>merge code</title>
 	 <meta charset="UTF-8"/>
 	 <meta name= "viewport" content= "width=device-width; initial-scale=1; user-scalable=no">
-<link rel="icon" href="favicon.png" type="image/jpeg" sizes="32x32"/>
+<link rel="icon" href="favicon.png"/>
 	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 </script>
@@ -14,6 +14,11 @@
 	 margin:0;
 	 font-family: arial sans-serif
 	 }
+	
+	a {
+	color: #09f;
+	text-decoration: none;
+	}
 	
 	 .menu{
 	 display:flex;
@@ -280,9 +285,9 @@ padding: 60px 0;
 color: #666;
 }
 .prof h3{
-    text-align: center;
+text-align: center;
 color: #555;
-margin: 15px 0;
+margin: 15px 0 20px;
 }
 .prof b{
     font-weight: 400;
@@ -299,13 +304,15 @@ border-radius: 5px;
     .prof{
 display:flex;
 flex-wrap: wrap;
-justify-content: center;
+justify-content: center; 
+padding: 0;
     }
 .prof > div {
 width: 300px;
-margin: 10px;
+margin: 10px; 
  }
 }
+
 .prof-profile img{
 border: 1px solid #9cf;
 border-radius: 50%;
@@ -322,6 +329,13 @@ font-size: 1.1em;
     margin: 6px 0;
 font-weight: 300;
 }
+.prof-contact form div{
+width:100%;
+display:flex; 
+}
+.prof-profile ul a{
+color: var(--myblue) !important
+}
 .prof-contact input:not([type=submit]), textarea{
 width: 100%;
 border: 1px solid #ccc;
@@ -337,19 +351,19 @@ box-shadow: 0 0 1px 1px var(--myblue);
 border: 1px solid var(--myblue);
 }
 [type=submit]{
-background: #222;
-color:#ddd;
-box-shadow: 1px 1px 1px #777;
+background: #fff;
+color:#555;
 border-radius: 3px;
 padding: 5px 21px;
 font-size: 1.2em;
-border:none;
+border: 1px solid #555;
 display: inline-block;
 margin: 5px 0;
 outline: none;
 }
 
 [type=submit]:active{
+color:white;
 box-shadow:none;
 background: #000;
 }
@@ -368,7 +382,7 @@ text-decoration: none;
 
 	   .footer{
 	   display:flex; 
-	   flex-wrap: wrap; 
+	   flex-flow: wrap; 
 	   Justify-content :center; 
 	   align-items: center; 
 	    height: 120px; 
@@ -376,8 +390,15 @@ text-align: center;
 	   background: var(--myblue); 
 	   color:white;
 	   }
-
-
+	   .footer *{
+	   text-align:center 
+	   }
+.footer div:first-child {
+width:100%;
+}	   
+textarea{
+font-family: sans-serif;
+}
 	 </style>
  </head>
 	 <body>
@@ -444,7 +465,7 @@ Landscape is beautiful graphic view. Televisions make use of landcape, desktops 
 	<img src= "design2.png" />
 	<div  class="card-body">
 	<h3>Experience</h3>
-I have experience in the following. Html, Css, Javascript, jQuery, ReactJS
+ Html, Css, Javascript, jQuery, Sass, Bootstrap, ReactJS, NodeJS, Php, MySQL
 	<a href="" class="card-btn">Read more</a>
 	</div>
 	</div>
@@ -476,6 +497,11 @@ I have experience in the following. Html, Css, Javascript, jQuery, ReactJS
     <div>
     <b>Email: </b><a href="mail: irokatochukwu@gmail.com">irokatochukwu@gmail.com</a>
     </div>
+    <ul class="social-media-icons">
+	<li><a  href ="https://facebook.com/iroka.tochukwu" class="fa fa-lg fa-facebook" target="_black"></a></li>
+<li>	<a href="https://wa.link/b8uelg" target="_blank"  class="fa  fa-lg fa-whatsapp" target="_blank"></a></li>
+<li>	<a href="https://github.com/iroka09" target="_blank"  class="fa  fa-lg fa-github" target="_blank"></a></li>
+	</ul>
   </div>
   
 <div class="prof-quote">
@@ -488,18 +514,25 @@ In life there is nothing impossible to do, when it gets tough all it requires is
 </div>
 <div class="prof-contact">
 <h3>CONTACT</h3>
+<br>
+<a href="tel:08130770603">Call <i class="fa fa-phone"></i> 08130770603</a> <br><br>
+<a href="mail: irokatochukwu@gmail.com">Send email to "irokatochukwu@gmail.com"</a> <br><br>
     <form method="post" action="">
+    <div>
     <input type="email" placeholder="Enter your Email" name="email" required>
+    </div>
+    <div>
 <textarea placeholder="Enter your Message here..." rows="10" name="body"></textarea>
+</div>
 <input type="submit" name="Submit" value="Submit"/>
     </form>
 </div>
 </div>
 	
 	<div  class="footer">
-	    
-&copy; copyright @ 2020 - <span id="date"></span>&emsp;All right reserved
-	
+	    <div>
+&copy; copyright @ 2020 - <span id="date"></span> All right reserved
+	</div>
 	<ul class="social-media-icons social-media-footer">
 	<li><a  href ="https://facebook.com/iroka.tochukwu" class="fa fa-lg fa-facebook" target="_black"></a></li>
 <li>	<a href="https://wa.link/b8uelg" target="_blank"  class="fa  fa-lg fa-whatsapp" target="_blank"></a></li>
