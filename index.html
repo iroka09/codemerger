@@ -598,9 +598,6 @@ font-family: sans-serif;
 	
 	</div>
 	
-	 <a id="menu"></a>
-
-	
 	<div  class="caro" data-interval="3" data-delay="0" data-autoride="next"  >	
 	<span  class="list"></span>
 		<img  src= "design5.png" class="caro-item active"/>
@@ -784,7 +781,7 @@ In life there is nothing impossible to do, when it gets tough all it requires is
 	</ul>
 	</div>
 	
-	<a href="#menu"  id="toTop"><i  class="fa fa-angle-up"></i></a>
+	<a href="#"  id="toTop"><i  class="fa fa-angle-up"></i></a>
 	
 	<div  id="cookie">
 	<button  class="cl"><i  class="fa fa-close"></i></button>
@@ -809,7 +806,8 @@ this.parentNode.classList.remove('show');
 	})
 	
 	document.querySelectorAll(".card-btn").forEach(x=>{
-	x.onclick = function() {
+	x.onclick = function(e) {
+	e.preventDefault();
 alert("The page is not available right now.");
 	    }
 	})
