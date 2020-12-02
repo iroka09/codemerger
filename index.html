@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang= "en">
  <head>
 	 <title>merge code</title>
 	 <meta charset="UTF-8"/>
+	 <meta name= "description" content= "A showcase of beautiful webpage template design.">
+	 <meta name= "keywords" value= "Html, Css, Javascript, Bootstrap">
+	 <meta name= "author" content= "Iroka Ntomchukwu Chisom">
 	 <meta name= "viewport" content= "width=device-width; initial-scale=1; user-scalable=no">
 <link rel="icon" href="favicon.png"/>
 	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -694,7 +697,7 @@ share <b>1</b>
 	<div  class="card-body">
 	<h3>Design</h3>
 I can give a beautiful looking web design to a client, i also give a good responsive page that fits all screen sizes.
-	<a href="" class="card-btn">Read more</a>
+	<a href="#" class="card-btn">Read more</a>
 	</div>
 	</div>
 	
@@ -703,7 +706,7 @@ I can give a beautiful looking web design to a client, i also give a good respon
 	<div  class="card-body">
 	<h3>Experience</h3>
  Html, Css, Javascript, jQuery, Sass, Bootstrap, ReactJS, NodeJS, Php, MySQL
-	<a href="" class="card-btn">Read more</a>
+	<a href="#" class="card-btn">Read more</a>
 	</div>
 	</div>
 	
@@ -760,7 +763,7 @@ In life there is nothing impossible to do, when it gets tough all it requires is
     <input type="email" placeholder="Enter your Email" name="email" required>
     </div>
     <div>
-<textarea placeholder="Enter your Message here..." rows="10" name="body"></textarea>
+<textarea placeholder="Enter your Message here..." rows="10" name="body" required></textarea>
 </div>
 <input type="submit" name="Submit" value="Submit"/>
     </form>
@@ -802,6 +805,12 @@ In life there is nothing impossible to do, when it gets tough all it requires is
 document.querySelectorAll("#cookie button").forEach(x=>{
 	x.onclick = function() {
 this.parentNode.classList.remove('show');
+	    }
+	})
+	
+	document.querySelectorAll(".card-btn").forEach(x=>{
+	x.onclick = function() {
+alert("The page is not available right now.");
 	    }
 	})
 	
