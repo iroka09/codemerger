@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	 <title>merge code</title>
+	 <meta charset="UTF-8"/>
+	 <meta name= "viewport" content= "width=device-width; initial-scale=1; user-scalable=no">
+<link rel="icon" href="favicon.png"/>
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+	 <style>
+	 *{
+	 box-sizing: border-box; 
+	 }
+	 html{
+	 scroll-behavior:smooth;
+	 }
+	 hr{
+	 border: 1px solid rgba(200,200,200,0.5)
+	 }
+	 body{
+	 --myblue: #08f; 
+--lightblack: #f7f7fa;
+	 margin:0;
+	 font-family: arial sans-serif
+	 }
+	
+	a {
+	color: #09f;
+	text-decoration: none;
+	}
+	
+	 .menu{
+	 display:flex;
+	 position: sticky; 
+	 top:0;
+	 height:60px;
+	 align-items:center;
+	 justify-content: space-between;
+	 padding: 0px 20px; 
+	 font-size: 1.5em; 
+	 margin-top:8px;
+	 color: #555;
+	 background	: #fff; 
+	 z-index:12;
+	 opacity: 0.8;
+	 }
+	
+	.menu-links{
+	display:flex;
+	list-style: none; 
+	font-size: .8em; 
+	Justify-content: space-around;
+	}
+	
+		.menu-links li{
+		margin:0 12px
+		}
+		
+		@media (max-width:600px) {
+			.menu-links{
+			display: none; 
+			}
+		}
+	 
+	 .favicon{
+	 width:60px;
+	 padding:0
+	 }
+	 
+	 .bar {
+	 display:flex;
+	 position:fixed;
+	 flex-direction: column; 
+	 flex-wrap: wrap; 
+	 top:0;
+    right: 0;
+	 height:100vh;
+	 width:0;
+	 background: var(--myblue) ; 
+	 opacity: 0;
+	 box-shadow: -1px 0 14px dodgerblue;
+	 z-index:14;
+	 transition: .4s ; 
+	 will-change: width, opacity, transform;
+	 }
+
+	 
+	 .bar.active {
+	width: 100vw;
+	 opacity: .9;
+	 will-change: opacity, width;
+	 }
+	 
+	 
+	 @media (min-width:600px)  {
+	 .fa-bars {
+	 display:none;
+	   }
+	 }
+	 
+	
+
+	 .close{
+	 display:block;
+	 margin:20px 10px 30px auto;
+	 background: none; 
+	 border: 0;
+	 font-size: 2em; 
+	 color: #222;
+	 outline:0;
+	 }
+	 .bar-links{
+	 list-style-type:none;
+	 padding:0;
+	 }
+	 .bar-links li{
+	 margin-bottom:20px; 
+	 display:block;
+	 text-align:center;
+	 }
+	 .bar-links a{
+	 color: #fff;
+	 font-size: 1.4em; 
+	 }
+	    
+	    /*CAROUSEL*/
+	    .caro{
+	    margin: 0 0 20px;
+	    height: 200px; 
+	    width: 100%;
+	    border: 1px solid #aaa; 
+	    position: relative; 
+	    overflow: hidden; 
+	    }
+	    
+	    .caro .caro-item{
+	    width:100%;
+	    height:100%;
+	    opacity: 0;
+	    object-fit: cover; 
+	    position:absolute;
+	    transform: scale(1);
+	    text-align:center;
+	    transition: 2s; 
+	    will-change: opacity, transform;
+	    }
+	    
+	   .caro .caro-item.active{ 
+	    opacity: 1;
+	    transform: scale(1.1);
+	    }
+	    .caro .list {
+	    position: absolute;
+	    top:4px;
+	    left: 6px; 
+	    text-shadow: 1px 1px 0 #fff; 
+	    z-index: 1;
+	    font-size: 1.2em;
+	    font-weight: 300
+	    }
+	    
+	    .caro-indicators{
+	    position: absolute; 
+	    bottom: 9px; 
+	    display:flex; 
+	    flex-flow: row; 
+	    width:100%;
+	    Justify-content: center; 
+	    z-index: 2;
+	    opacity: .7;
+	    }
+	    
+	      .caro-controls, .caro-indicators{
+	    list-style-type: none;
+	    padding:0; 
+	    }
+	    
+	    .caro-controls{
+	    position: absolute;
+	    top:-10px;
+	    left:0;
+	    display:flex;
+	    height: 100%;
+	    width:100%;
+	    align-items:center;
+	    Justify-content: space-between;
+	    opacity: .7;
+	    }
+	      .caro-controls li{
+	      margin: 0 12px; 
+	      color: dodgerblue; 
+	      }
+	     .caro-indicators li{
+	    margin: 0 9px; 
+	    display:block;
+	    border-radius:50%;
+	    background: #aaa; 
+	    width:15px;
+	    opacity: .8;
+	    height:15px;
+	    transition: .5s; 
+	    }
+	      .caro-indicators li.active{
+	      background: dodgerblue;
+ 	      }
+ 	      
+ 	      
+ 	.flex-card-cont {
+	  background: var(--lightblack);
+	  padding: 5px; 
+margin-bottom: 50px;
+	  }
+	    
+	    	    
+	    @media (min-width:600px){
+	    .flex-card-cont {
+	    display: flex; 
+	    flex-wrap: wrap; 
+	    Justify-content: space-evenly;
+	      }
+	        	.flex-card-cont div{
+	    	    width: 45%;
+	    	    }
+	    }
+ 	      
+ 	      
+ 	   .card-cont{
+	  background: #fff; 
+	  width: 82%;
+	  margin: 50px auto; 
+	  overflow: hidden; 
+	  border-radius:5px;
+	  box-shadow: 2px 4px 40px #ccc; 
+	  display: flex; 
+	  flex-flow: wrap;  
+	  }
+	 
+	    .card-cont img {
+	    display:block;
+	    height: 250px;
+	    width:100%;  
+	    object-fit: cover; 
+	    transition: .6s; 
+	    pointer-events: auto;
+	    }
+	    
+	    .card-body {
+	    position: relative;
+	    padding: 7px; 
+	    width:90%;
+	    margin: auto; 
+	    text-align:center;
+	    transition: .3s; 
+	    font-size: 1.1em;
+	    color: #777; 
+	    font-weight: 300;
+	    }
+	    
+	  .card-btn{
+	  text-decoration: none; 
+	  display:inline-block;
+	  color: var(--myblue);
+	  font-size: 1em; 
+	  background: white;
+	  border: 1px solid var(--myblue) ; 
+	  text-align:center;
+	  border-radius: 4px; 
+	  font-weight: ; 
+	  margin: 25px auto; 
+	  padding: 10px 30px;
+	  transition: .2s; 
+	  white-space: nowrap; 
+	  }
+	    
+	       .card-btn:hover{
+	    box-shadow: 0 0 0 1px var(--myblue) 
+	    }
+	    
+	      .card-btn:active{
+	    background: var(--myblue); 
+	    color: white; 
+	    }
+	    	  
+	    	.card-cont:hover .card-body{
+	    	color: var(--myblue); 
+	    	}
+	    	  
+
+.prof-about{
+    text-align: center;
+    color: #666;
+    width:100%;
+}
+.prof{
+width:100%;
+background: var(--lightblack);
+padding: 20px 0;
+color: #666;
+}
+.prof h3{
+text-align: center;
+color: #555;
+margin: 15px 0 20px;
+}
+.prof b{
+    font-weight: 400;
+}
+.prof > div{
+    background-color: white;
+width: 85%;
+max-width: 350px;
+padding: 16px;
+margin: 30px auto;
+border-radius: 5px;
+}
+@media (min-width:650px){
+    .prof{
+display:flex;
+flex-wrap: wrap;
+justify-content: center; 
+padding: 0;
+    }
+.prof > div {
+width: 300px;
+margin: 10px; 
+ }
+}
+
+.prof-profile img{
+border: 1px solid #ccc;
+border-radius: 50%;
+display: block;
+margin: 20px auto;
+padding: 5px;
+width: 150px;
+height: 150px;
+}
+.prof-profile-cont{
+font-size: 1.1em;
+}
+.prof-profile-cont div {
+    margin: 6px 0;
+font-weight: 300;    
+}
+.prof-contact form div{
+width:100%;
+display:flex; 
+font-weight: 300;
+}
+.prof-profile ul a{
+color: #888
+}
+.prof-contact input:not([type=submit]), textarea{
+width: 100%;
+border: 1px solid #ccc;
+font-size: 1em;
+padding: 7px;
+border-radius: 4px;
+outline:none;
+margin: 5px 0;
+transition: .2s;
+}
+input[type=email]:focus, textarea:focus{
+box-shadow: 0 0 1px 1px #7cf;
+border: 1px solid #7cf;
+}
+[type=submit]{
+background: #fff;
+color:black;
+font-weight: 300;
+border-radius: 3px;
+padding: 5px 21px;
+font-size: 1.2em;
+border: 1px solid black;
+display: inline-block;
+margin: 5px 0;
+outline: none;
+}
+
+[type=submit]:active{
+color:white;
+box-shadow:none;
+background: #000;
+}
+.social-media-icons{
+color:white;
+display:flex;
+justify-content: center;
+list-style: none;
+padding: 0;
+}
+.social-media-icons a{
+margin: 0 15px;
+color: white;
+text-decoration: none;
+}
+
+	   .footer{
+	   display:flex; 
+	   flex-flow: wrap; 
+	   Justify-content :center; 
+	   align-items: center; 
+	    height: 120px; 
+text-align: center;
+	   background: var(--myblue); 
+	   color:white;
+	   }
+	   .footer *{
+	   text-align:center 
+	   }
+.footer div:first-child {
+width:100%;
+}	   
+textarea{
+font-family: sans-serif;
+}
+.keywords{
+	font-size: .9em; 
+	color: #888;
+	display: flex; 
+	padding-left: 5px; 
+	align-items: center; 
+	margin-bottom: 40px; 
+	}
+	.keywords b{
+	font-size: 2em; 
+	font-weight: 300
+	}
+	.article{
+	color: #555; 
+	padding: 10px; 
+	margin: 50px 0;
+	box-shadow: 0 9px 10px -5px #ddd; 
+	font-weight: 300;
+	font-size: 1.1em
+	}
+
+	.article .by {
+	display: flex; 
+	align-items:center;
+	font-weight: bold; 
+	}
+	.article	.on i{
+	font-weight :lighter;
+	}
+.article	.on i:last-child {
+	color: #6ab;
+	}
+	.article-pic {
+	width:100%;
+	max-width: 400px; 
+	display:block;
+	margin: 50px auto; 
+	}
+	.article img:not(.article-pic) {
+	width:70px;
+	height:70px;
+	border-radius: 50%;
+	padding: 2px; 
+	border:1px solid #ddd; 
+	margin-right: 9px; 
+	}
+	.article-reply{
+	width:95%;
+	max-width: 500px; 
+	margin:20px 0 20px auto;
+	border: 1px solid #ddd; 
+	border-radius: 5px; 
+	padding:5px;
+	}
+	.article-reply > p{
+	padding: 10px; 
+	}
+	.article-btn{
+	display:flex;
+	Justify-content: flex-end; 
+	margin: 5px 2px 20px;
+	}
+	.article-btn b{
+	display:inline-block; 
+	border-radius: 50%;
+	color:white !important;
+	padding: 3px 5.5px; 
+	font-size: .6em; 
+	vertical-align: text-top;
+	background: #f30; 
+	}
+	#toTop{
+	display:block;
+	width: 50px; 
+	height:50px;
+	border-radius: 50%;
+	background:black;
+	color: white; 
+	font-size: 2em; 
+	justify-content:center;
+	align-items:center;
+	opacity: .6;
+	position:fixed;
+	right: 20px; 
+	bottom: 70px; 
+	display:none; 
+	}
+	#toTop.show{
+	display:flex;
+	}
+		.svg-pic{
+	display:block; 
+	width:60%;
+	max-width: 300px; 
+	margin: 40px auto;
+	}
+	#cookie{
+	position: fixed; 
+	bottom: -300px;
+	width:98%;
+	margin-left:1%; 
+	max-width: 400px; 
+	border:1px solid #bbb; 
+	border-radius: 4px; 
+	background: #fec;
+	box-sizing:border-box; 
+	padding: 5px; 
+	font-size: 1.1em;
+	text-align:center;
+	box-shadow: 0 -5px 20px #aaa; 
+	transition: .6s; 
+	opacity: 0;
+	z-index: 100;
+	font-weight: 300;
+	}
+	#cookie.show{
+	bottom: 2px;
+	opacity:.8;
+	}
+	#cookie .cl{
+	border:0;
+	background: none; 
+	display:block; 
+	padding: 8px; 
+	margin: 5px 5px 0 auto;
+	}
+	#cookie .accept {
+	display:block;
+	width: 95%;
+	margin: 8px auto; 
+	font-size:1.3em;
+	background: none; 
+	border: 1px solid black;
+	font-weight: 300;
+	padding: 5px; 
+	border-radius: 6px; 
+	}
+	#cookie .accept:active{
+	background: #222; 
+	color:#fec;
+	opacity: .8
+	}
+	 </style>
+ </head>
+	 <body onscroll= "scroll()">
+	
+	<div  class="menu">
+	<div  class="log">
+	<img src="favicon.png" class="favicon" />
+	</div>
+	<ul  class="menu-links">
+	<li><a href= "#article">Article</a></li>
+	<li><a href= "#profile">Profile</a></li>
+	<li><a href= "#experience">Experience 
+	</a></li>
+	<li><a href="#contact">Contact</a></li>
+	<li><a href= "#about">About</a></li>
+	</ul>
+	<div  class="fa fa-bars"></div>
+	</div>
+	
+	<div  class="bar">
+	<button  class="close" ><i  class="fa fa-close "></i></button>
+	<ul  class="bar-links">
+	<li><a href= "#article">Article</a></li>
+	<li><a href= "#profile">Profile</a></li>
+	<li><a href= "#experience">Experience 
+	</a></li>
+	<li><a href="#contact">Contact</a></li>
+	<li><a href= "#about">About</a></li>
+	</ul>
+	
+	<ul class="social-media-icons">
+	<li><a  href ="https://facebook.com/iroka.tochukwu" class="fa fa-lg fa-facebook-square" target="_black"></a></li>
+<li>	<a href="https://wa.link/b8uelg" target="_blank"  class="fa  fa-lg fa-whatsapp" target="_blank"></a></li>
+<li>	<a href="https://github.com/iroka09" target="_blank"  class="fa  fa-lg fa-github" target="_blank"></a></li>
+	</ul>
+	
+	</div>
+	
+	 <a id="menu"></a>
+
+	
+	<div  class="caro" data-interval="3" data-delay="0" data-autoride="next"  >	
+	<span  class="list"></span>
+		<img  src= "design5.png" class="caro-item active"/>
+		<img  src= "ui-ux-design.png" class="caro-item"/>
+	<img  src= "guy1.jpg" class="caro-item" />
+	<ul  class="caro-controls">
+	<li  class="fa fa-lg fa-chevron-circle-left" data-parent = "#caro" data-slide="prev"></li>
+	<li  class="fa fa-lg fa-chevron-circle-right" data-parent = "#caro" data-slide="next"></li>
+	</ul>
+	<ul class="caro-indicators">
+	<li  class="active" data-slideTo="0" data-target="#caro"></li>
+	<li data-slideTo="1" data-target="#caro"></li>
+	<li data-slideTo="2" data-target="#caro"></li>
+	</ul>
+	</div>
+	
+	<div  class="keywords">
+	Marketing <b>&nbsp;|&nbsp;</b> E-commerce <b>&nbsp;|&nbsp;</b> Blog
+	</div>
+		
+<div  class="article"  id="article">
+<h1  class="article-title">
+Reason why i love Lionel Messi
+</h1>
+<div  class="by">
+<img src= "me1.jpg"/>
+<div  class="on">
+<b>By: Iroka Ntomchukwu</b><br>
+<i>
+<i  class="fa fa-calendar"></i>
+&nbsp;Tue, 1 / Dec / 2020<br> 
+<i  class="fa fa-history"></i>
+&nbsp;10:37am GMT </i>
+</div>
+</div>
+<hr>
+<p>
+Has anyone in the history of football captured our hearts quite like Lionel Andres Messi?
+ <h4>Overcoming obstacles since his childhood</h4>
+
+<p>Growing in the streets of Rosario, Argentina, Messi was undoubtedly supremely gifted and everyone realised that since the moment he touched a football. However, he just didn’t become the superstar he is by being supremely gifted he had to overcome countless obstacles, the biggest of which was the growth hormone deficiency that he suffered from. At a tender age Leo was diagnosed to have been suffering from a growth hormone deficiency which not only put his footballing career in jeopardy but also threatened to shunt his physical development.
+</p>
+<p>
+Despite the growth hormone injections Messi could only reach a height of 1.7 metres, relatively small for a footballer Forced to develop his game according to his height, Messi worked on his close control of the ball and on the skills required to get out of tight spots making his height disadvantage work in his favour. He didn’t just become one of the all time greats, he sacrificed, he pierced himself and had to put in hard yards and the rest as they say… is history.</p>
+<i>Why do you love Messi?</i><br><br>
+<hr>
+<div  class="article-btn">
+<a href= ""><i  class="fa fa-comment"></i> comment <b>2</b></a> &emsp; 
+<a href= ""><i  class="fa fa-share"></i> 
+share <b>1</b>
+</a>
+</div>
+
+<div  class="article-reply">
+ <div  class="by">
+ <img src= "pic.jpg">
+<div  class="on">
+<b>Anita Mercy</b> <i>commented</i><br>
+<i>
+<a href= "mailto: anitamercy43@gmail.com">email: anitamercy43@gmail.com</a><br>
+1-dec-2020 | 10:37am GMT </i></div>
+</div>
+<hr>
+<p>Wow, i love him too, he's indeed a great footballer.</p>
+<div  class="article-btn">
+<a href= ""><i  class="fa fa-reply"></i> reply</a> &emsp; 
+</div> 
+</div>
+
+<div  class="article-reply">
+ <div  class="by">
+ <img src= "img1.png">
+<div  class="on">
+<b>John Phillip</b> <i>commented</i><br>
+<i>
+<a href= "mailto: Johnphilip74@gmail.com">email: Johnphilip74@gmail.com</a><br>
+1-dec-2020 | 11:37pm GMT </i></div>
+</div>
+<hr>
+<p>I am a fan of Ronaldo, but Messi is the best footballer, no doubt about that.</p>
+<div  class="article-btn">
+<a href= ""><i  class="fa fa-reply"></i> reply</a> &emsp; 
+</div> 
+</div>
+
+</div>
+
+
+
+	<div  class="flex-card-cont"  id="experience">
+	<h1 style= "color: #666;text-align:center; width:100%;margin-top:50px">Experience</h1>
+	<div  class="card-cont">
+	<img src= "design1.png" />
+	<div  class="card-body">
+	<h3>Design</h3>
+I can give a beautiful looking web design to a client, i also give a good responsive page that fits all screen sizes.
+	<a href="" class="card-btn">Read more</a>
+	</div>
+	</div>
+	
+	<div  class="card-cont">
+	<img src= "design2.png" />
+	<div  class="card-body">
+	<h3>Experience</h3>
+ Html, Css, Javascript, jQuery, Sass, Bootstrap, ReactJS, NodeJS, Php, MySQL
+	<a href="" class="card-btn">Read more</a>
+	</div>
+	</div>
+	
+	<!-- Card end -->
+	</div>
+	
+	
+
+<img  class="svg-pic" src= "woman-with-lock-sm.svg"/>
+
+<div class="prof"  id="profile">
+<h1 class="prof-about"  id="about">ABOUT</h1>
+    <div class="prof-profile" >
+<h3>PROFILE</h3>
+        <img src="me1.jpg"/>
+<div class="prof-profile-cont">
+    <div>
+    <b>Name: </b>Iroka Ntomchukwu Chisom
+    </div>
+    <div>
+    <b>Nationality: </b>Nigeria
+    </div>
+    <div>
+    <b>State of Origin: </b>Imo state
+    </div>
+    <div>
+    <b>Mobile number: </b><a href="tel:08130770603">08130770603</a></div>
+    </div>
+    <div>
+    <b>Email: </b><a href="mailto:irokatochukwu@gmail.com">irokatochukwu@gmail.com</a>
+    </div>
+    <ul class="social-media-icons">
+	<li><a  href ="https://facebook.com/iroka.tochukwu" class="fa fa-lg fa-facebook-square" target="_black"></a></li>
+<li>	<a href="https://wa.link/b8uelg" target="_blank"  class="fa  fa-lg fa-whatsapp" target="_blank"></a></li>
+<li>	<a href="https://github.com/iroka09" target="_blank"  class="fa  fa-lg fa-github" target="_blank"></a></li>
+	</ul>
+  </div>
+  
+<div class="prof-quote">
+<h3>FAVOURITE QUOTES</h3>
+    <i class="fa fa-quote-left"></i><br>
+Live a good life and always remember that life is too short.
+<br><br>
+    <i class="fa fa-quote-left"></i><br>
+In life there is nothing impossible to do, when it gets tough all it requires is determination. <br>
+</div>
+<div class="prof-contact"  id="contact">
+<h3>CONTACT</h3>
+<br>
+<a href="tel:08130770603">Call <i class="fa fa-phone"></i>: 08130770603</a> <br><br>
+<a href="mailto:irokatochukwu@gmail.com?body=hello everyone">Email: irokatochukwu@gmail.com</a> <br><br>
+    <form method="post" action="" onsubmit= "return form(this)">
+    <div>
+    <input type="email" placeholder="Enter your Email" name="email" required>
+    </div>
+    <div>
+<textarea placeholder="Enter your Message here..." rows="10" name="body"></textarea>
+</div>
+<input type="submit" name="Submit" value="Submit"/>
+    </form>
+</div>
+</div>
+
+<img  class="svg-pic" src= "support-mobile.svg"/>
+	
+	<div  class="footer">
+	    <div>
+	    <br>
+&copy; copyright @ 2020 - <span id="date"></span> All right reserved
+	</div>
+	<ul class="social-media-icons social-media-footer">
+	<li><a  href ="https://facebook.com/iroka.tochukwu" class="fa fa-lg fa-facebook-square" target="_black"></a></li>
+<li>	<a href="https://wa.link/b8uelg" target="_blank"  class="fa  fa-lg fa-whatsapp" target="_blank"></a></li>
+<li>	<a href="https://github.com/iroka09" target="_blank"  class="fa  fa-lg fa-github" target="_blank"></a></li>
+	</ul>
+	</div>
+	
+	<a href="#menu"  id="toTop"><i  class="fa fa-angle-up"></i></a>
+	
+	<div  id="cookie">
+	<button  class="cl"><i  class="fa fa-close"></i></button>
+	<b>Your privacy is our concern</b>
+	<hr>
+	We use cookie to maintain and improve users's data structures for our server. Don't worry we won't take it against you, it's just for server maintenance.
+	<button  class="accept">Accept</button>
+	</div>
+
+	<script>
+	
+	date.innerHTML = new Date().getFullYear();
+	
+	setTimeout(()=>{
+	cookie.classList.add("show");
+	}, 4000);
+	
+document.querySelectorAll("#cookie button").forEach(x=>{
+	x.onclick = function() {
+this.parentNode.classList.remove('show');
+	    }
+	})
+	
+	document.querySelectorAll("img[src $= jpg]").forEach(x=>{
+	x.onclick = function() {
+location = this.src
+	    }
+	})
+	
+	function scroll() {
+	if(pageYOffset > 500) {
+	toTop.classList.add("show")
+    	}
+    	if(pageYOffset < 500) {
+	toTop.classList.remove("show")
+    	}
+	}
+	
+	function form(form) {
+	var email = form.email.value;
+	var body = form.body.value;
+	location = 
+	`mailto: ${email}?body=${body}`;
+	return false; 
+	}
+	
+	$(function() {
+	
+	//CAROUSEL
+	class Carousel {
+	 constructor(images, max, list, btns, speed, ride = false)  {
+ this.index = 0;
+ this.max = max-1;
+ this.list = list; 
+ this.speed = speed
+ this.images = images;
+ this.btns = btns; 
+this.interval = setInterval;
+this.ride = ride;
+   }
+slide(x) {
+	if(x == "prev") {
+	this.index = (this	.index===0)? this.max : this.index-1; 
+	this.render(this.index);
+	return 
+	}
+	this.index = (this.index===this.max)? 0 : this.index+1; 
+	this.render(this.index);
+}
+slideTo(num){
+this.index = num; 
+this.render(num);
+	 }
+	 render(i) {
+	 clearTimeout(this.timer)
+	 //images
+	 this.images.forEach((img)=>{
+	 img.classList.remove("active");
+	 })
+	 this.images[i].classList.add("active");	 
+	 //navigators
+	 this.btns.forEach((btn)=>{
+	 btn.classList.remove("active");
+	 })
+	 this.btns[i].classList.add("active");	 
+	 this.list.innerHTML = i+1 +"/"+(this.max+1);
+	 this.ride && this.startTimer(this.ride)
+	 }
+	 startTimer(ride) {	  
+	 this.timer = setTimeout(()=>this.slide(ride), this.speed)
+	 }
+}
+	//end carousel constructor
+	
+	
+	
+	
+	//CAROUSEL INIT
+document.
+querySelectorAll(".caro")
+.forEach((caro) => {
+
+let speed = $(caro).attr("data-interval");
+let delay= caro.getAttribute("data-delay");
+let ride= caro.getAttribute("data-autoride").trim();
+
+let images = caro.querySelectorAll(".caro-item");
+let list = caro.querySelector(".list");
+let btns = caro.querySelectorAll(".caro-indicators li"); 
+
+let carousel = new Carousel(
+images, 
+images.length,
+list, 
+ btns, 
+ speed*1000,
+ ride
+ );
+ 
+ list.innerHTML = "1/"+(images.length);
+ 
+caro.querySelectorAll("[data-slide]")
+.forEach((ele,i)=>{
+let attr = ele.getAttribute("data-slide");
+ele.addEventListener("click", (e)=>{
+carousel.slide(attr);
+   })
+})
+caro.querySelectorAll("[data-slideTo]")
+.forEach((ele,i)=>{
+let num = ele.getAttribute("data-slideTo");
+ele.addEventListener("click", (e)=>{
+carousel.slideTo(parseInt(num));
+   })
+})
+setTimeout(()=>{
+ride && carousel.startTimer(ride)
+}, delay*1000);
+
+	})
+	
+//carousel ended. 	
+	
+	
+	$(".fa-bars").click((e) => {	
+	  e.stopImmediatePropagation()
+	$(".bar").addClass("active");
+	   })
+	   
+	   $(".close, .bar-links a").click((e) => {
+	$(".bar").removeClass("active");
+	   })
+	   
+	 
+	
+	})
+	 
+	
+	</script>
+	 </body>
+ </html>
