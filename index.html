@@ -3,20 +3,26 @@
  <head>
 	 <title>merge code</title>
 	 <meta charset="UTF-8"/>
+	 <meta http-equiv= "content-type" content= 
+	 "text/html">
+	 	 <meta http-equiv= "cache-control" content= "no-store; max-age=0">
+	 	 <!-- SEO FRIENDLY -->
 	 <meta name= "description" content= "A showcase of beautiful webpage template design.">
 	 <meta name= "keywords" value= "Html, Css, Javascript, Bootstrap">
 	 <meta name= "author" content= "Iroka Ntomchukwu Chisom">
-	 <meta name= "viewport" content= "width=device-width; initial-scale=1; user-scalable=no">
-<link rel="icon" href="favicon.png"/>
+	 <!-- =========== -->
+	 <meta name= "viewport" content= "width=device-width; initial-scale=1; user-scalable=yes">
+<link rel="icon" href="favicon.png" sizes= "any"/>
 	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 </script>
 	 <style>
+	 :root{
+	 user-select: none;
+	 scroll-behavior:smooth;
+	 }
 	 *{
 	 box-sizing: border-box; 
-	 }
-	 html{
-	 scroll-behavior:smooth;
 	 }
 	 hr{
 	 border: 1px solid rgba(200,200,200,0.5)
@@ -32,7 +38,9 @@
 	color: #09f;
 	text-decoration: none;
 	}
-	
+	img{
+	object-fit: cover; 
+	}
 	 .menu{
 	 display:flex;
 	 position: sticky; 
@@ -276,10 +284,6 @@ margin-bottom: 50px;
 	  white-space: nowrap; 
 	  }
 	    
-	       .card-btn:hover{
-	    box-shadow: 0 0 0 1px var(--myblue) 
-	    }
-	    
 	      .card-btn:active{
 	    background: var(--myblue); 
 	    color: white; 
@@ -356,31 +360,33 @@ color: #888
 }
 .prof-contact input:not([type=submit]), textarea{
 width: 100%;
-border: 1px solid #ccc;
+border: 1px solid black;
 font-size: 1em;
 padding: 7px;
-border-radius: 4px;
+border-radis: 4px;
 outline:none;
 margin: 5px 0;
 transition: .2s;
 }
 input[type=email]:focus, textarea:focus{
-box-shadow: 0 0 1px 1px #7cf;
+box-shadow: 0 0 0px 1px #7cf;
 border: 1px solid #7cf;
 }
 [type=submit]{
-background: #fff;
-color:black;
+background: #444;
+color: white ;
 font-weight: 300;
-border-radius: 3px;
+border-radis: 3px;
 padding: 5px 21px;
 font-size: 1.2em;
-border: 1px solid black;
+border: 2px solid black;
 display: inline-block;
 margin: 5px 0;
 outline: none;
 }
-
+::placeholder{
+color: black
+}
 [type=submit]:active{
 color:white;
 box-shadow:none;
@@ -456,6 +462,7 @@ font-family: sans-serif;
 	display:block;
 	margin: 50px auto; 
 	}
+	
 	.article img:not(.article-pic) {
 	width:70px;
 	height:70px;
@@ -514,11 +521,17 @@ font-family: sans-serif;
 	max-width: 300px; 
 	margin: 40px auto;
 	}
-	#cookie{
+	
+	
+	#cookieCont{
 	position: fixed; 
 	bottom: -300px;
+	width:100%;
+	transition: .6s; 
+	}
+	#cookie{	
 	width:98%;
-	margin-left:1%; 
+	margin:auto; 
 	max-width: 400px; 
 	border:1px solid #bbb; 
 	border-radius: 4px; 
@@ -533,7 +546,10 @@ font-family: sans-serif;
 	z-index: 100;
 	font-weight: 300;
 	}
-	#cookie.show{
+		#cookieCont.show{
+	bottom: 2px;
+	}
+	#cookieCont.show #cookie{
 	bottom: 2px;
 	opacity:.8;
 	}
@@ -560,6 +576,40 @@ font-family: sans-serif;
 	color:#fec;
 	opacity: .8
 	}
+		.tech {
+	width:100%;
+	display:flex; 
+	Justify-content: center;
+	flex-wrap: wrap; 
+	padding: 20px 0;
+	}
+	.tech-body, .tech i, tech b{
+	display:block;
+	width:100%;
+	text-align:center;
+	}
+	.tech i{
+	color: #070; 
+	margin-top:40px
+	}
+	.tech > div {
+	background: var(--lightblack) ; 
+	width: 97%;
+	margin: 10px;
+	max-width: 300px; 
+	display:flex; 
+	flex-flow:  wrap; 
+	Justify-content: center; 
+	padding: 20px 0;
+	}
+		.tech > div > *{
+		display:block;
+		margin: 10px 0;
+		}
+.tech-body{
+font-size: .9em; 
+padding: 0 20px; 
+}
 	 </style>
  </head>
 	 <body onscroll= "scroll()">
@@ -625,7 +675,8 @@ Reason why i love Lionel Messi
 <div  class="by">
 <img src= "me1.jpg"/>
 <div  class="on">
-<b>By: Iroka Ntomchukwu</b><br>
+<i  class="fa fa-user"></i>
+&nbsp; Iroka Ntomchukwu<br>
 <i>
 <i  class="fa fa-calendar"></i>
 &nbsp;Tue, 1 / Dec / 2020<br> 
@@ -769,6 +820,25 @@ In life there is nothing impossible to do, when it gets tough all it requires is
 
 <img  class="svg-pic" src= "support-mobile.svg"/>
 	
+	<div  class="tech">
+	
+	<div>
+	<i  class="fa fa-globe fa-3x"></i>
+	<b>WEB DEVELOPMENT</b>
+	<div  class="tech-body">
+	Website developer. Both front-end and back-end.
+	</div>
+	</div>
+	
+	<div>
+	<i  class="fa fa-paint-brush fa-3x"></i>
+	<b>WEB GRAPHIC DESIGNER</b>
+	<div  class="tech-body">
+	Web graphics design. Beautiful front-end graphics including svg/canvas.
+	</div>
+	</div>
+	</div>
+	
 	<div  class="footer">
 	    <div>
 	    <br>
@@ -782,7 +852,8 @@ In life there is nothing impossible to do, when it gets tough all it requires is
 	</div>
 	
 	<a href="#"  id="toTop"><i  class="fa fa-angle-up"></i></a>
-	
+	</div>
+	<div  id="cookieCont">
 	<div  id="cookie">
 	<button  class="cl"><i  class="fa fa-close"></i></button>
 	<b>Your privacy is our concern</b>
@@ -790,18 +861,19 @@ In life there is nothing impossible to do, when it gets tough all it requires is
 	We use cookie to maintain and improve users's data structures for our server. Don't worry we won't take it against you, it's just for server maintenance.
 	<button  class="accept">Accept</button>
 	</div>
+	</div>
 
 	<script>
 	
 	date.innerHTML = new Date().getFullYear();
 	
 	setTimeout(()=>{
-	cookie.classList.add("show");
+		cookieCont.classList.add("show");
 	}, 4000);
 	
 document.querySelectorAll("#cookie button").forEach(x=>{
 	x.onclick = function() {
-this.parentNode.classList.remove('show');
+cookieCont.classList.remove('show');
 	    }
 	})
 	
