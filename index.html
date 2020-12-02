@@ -57,6 +57,10 @@
 	 opacity: 0.8;
 	 }
 	
+	.menu.show{
+	box-shadow: 0 1px 11px #aaa;
+	}
+	
 	.menu-links{
 	display:flex;
 	list-style: none; 
@@ -208,7 +212,6 @@
 	    border-radius:50%;
 	    background: #aaa; 
 	    width:15px;
-	    opacity: .8;
 	    height:15px;
 	    transition: .5s; 
 	    }
@@ -890,12 +893,20 @@ location = this.src
 	    }
 	})
 	
+	
+	var _menu = document.querySelector(".menu");
 	function scroll() {
-	if(pageYOffset > 500) {
+	var page = pageYOffset;
+	if( page > 500) {
 	toTop.classList.add("show")
     	}
-    	if(pageYOffset < 500) {
+    	if(page < 500) {
 	toTop.classList.remove("show")
+    	}
+    	if(page < 20) {
+    	_menu.classList.remove("show");
+    	}else{   	
+    	_menu.classList.add("show");
     	}
 	}
 	
@@ -924,20 +935,21 @@ this.ride = ride;
 slide(x) {
 	if(x == "prev") {
 	this.index = (this	.index===0)? this.max : this.index-1; 
-	this.render(this.index);
-	return 
 	}
+	if(x == "next") {
 	this.index = (this.index===this.max)? 0 : this.index+1; 
-	this.render(this.index);
+	}
+	this.render();
 }
 slideTo(num){
 this.index = num; 
-this.render(num);
+this.render();
 	 }
-	 render(i) {
+	 render() {
 	 clearTimeout(this.timer)
+	 var i = this.index;
 	 //images
-	 this.images.forEach((img)=>{
+	 this.images.forEach((img, x)=>{
 	 img.classList.remove("active");
 	 })
 	 this.images[i].classList.add("active");	 
@@ -947,10 +959,11 @@ this.render(num);
 	 })
 	 this.btns[i].classList.add("active");	 
 	 this.list.innerHTML = i+1 +"/"+(this.max+1);
-	 this.ride && this.startTimer(this.ride)
+	 this.startTimer(this.ride)
 	 }
-	 startTimer(ride) {	  
-	 this.timer = setTimeout(()=>this.slide(ride), this.speed)
+	 startTimer(x) {	 
+	 if(!this.ride) return;	 
+	 this.timer = setTimeout(()=>this.slide(x), this.speed)
 	 }
 }
 	//end carousel constructor
@@ -962,7 +975,6 @@ this.render(num);
 document.
 querySelectorAll(".caro")
 .forEach((caro) => {
-
 let speed = $(caro).attr("data-interval");
 let delay= caro.getAttribute("data-delay");
 let ride= caro.getAttribute("data-autoride").trim();
@@ -1000,6 +1012,21 @@ setTimeout(()=>{
 ride && carousel.startTimer(ride)
 }, delay*1000);
 
+
+
+let initialX, finalX;
+caro.addEventListener("touchmove", function(e){
+if(!initialX) initialX =  e.touches[0].clientX; 
+finalX = e.touches[0].clientX;
+})
+
+caro.addEventListener("touchend", function(e){
+if(initialX - finalX>0) carousel.slide("next");
+else if((initialX - finalX)<0) carousel.slide("prev");
+initialX = false, finalX = false; 
+})
+
+
 	})
 	
 //carousel ended. 	
@@ -1018,7 +1045,6 @@ ride && carousel.startTimer(ride)
 	
 	})
 	 
-	
 	</script>
 	 </body>
  </html>
