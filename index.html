@@ -136,7 +136,7 @@
 	 }
 	 .bar-links a{
 	 color: #fff;
-	 font-size: 1.4em; 
+	 font-size: 1em; 
 	 }
 	    
 	    /*CAROUSEL*/
@@ -613,6 +613,34 @@ font-family: sans-serif;
 font-size: .9em; 
 padding: 0 20px; 
 }
+.more {
+width: 50%;
+max-width: 200px; 
+padding-left: 20px; 
+}
+.more > div{
+white-space: nowrap;
+font-size: 1.3em;
+color: #666 ;
+}
+.more i{
+transform: rotate(0deg);
+transition: .3s; 
+}
+.more > div.active i{
+transform: rotate(-180deg);
+} 
+.more ul{
+list-style: none; 
+font-size: 1.1em;
+padding: 0px 0;
+overflow:hidden;
+}
+.more ul li{
+margin: 10px 0;
+padding: 9px 0;
+border-bottom: 1px solid #ccc
+}
 	 </style>
  </head>
 	 <body onscroll= "scroll()">
@@ -672,6 +700,18 @@ padding: 0 20px;
 	<div  class="keywords">
 	Marketing <b>&nbsp;|&nbsp;</b> E-commerce <b>&nbsp;|&nbsp;</b> Blog
 	</div>
+		
+		
+		
+		
+		<div  class="more">
+	<div onclick= "toggle(this)">	More Projects &emsp; <i  class="fa fa-chevron-down"></i>
+		</div>
+		<ul  id="ul">
+		<li><a href= "virtual.html">Virtual game</a></li>
+		<li><a href= "tic_tac_toe.html">Tic tac toe</a></li>
+		</ul>
+		</div>
 		
 <div  class="article"  id="article">
 <h1  class="article-title">
@@ -869,6 +909,17 @@ In life there is nothing impossible to do, when it gets tough all it requires is
 	</div>
 
 	<script>
+	
+	var h = ul.offsetHeight;
+		ul.style.height = "0px";
+		ul.style.transition = ".3s";
+		function toggle(ele) {
+		ele.classList.toggle("active");
+		if(ele.classList.contains("active"))
+		ul.style.height = h+"px";
+		else
+		ul.style.height = 0+"px";
+		}
 	
 	date.innerHTML = new Date().getFullYear();
 	
