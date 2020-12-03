@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+ <head>
+	 <title>Tic tac toe</title>
+	 <meta charset="UTF-8"/>
+	 <meta name= "viewport" content= "width=device-width, initial-scale=1">
+ </head>
+ <style>
+ body{
+ font-family: sans-serif;
+ }
+ .main{
+ position:absolute;
+ width:300px;
+ height:300px;
+ background: black; 
+ top:50%;
+ left:50%;
+ transform: translate(-50%, -50%);
+display: flex; 
+flex-wrap: wrap;
+Justify-content: space-around;
+align-items: center;
+padding:5px;
+border-radius: 4px; 
+box-shadow: 1px 6px 46px #444
+ }
+ .b1{
+ width: 31.33%;
+ height: 31.33%;
+ background: #eee; 
+ border-radius: 5px;
+ display: flex; 
+Justify-content: center;
+align-items: center;
+ }
+ .c, .y{
+ width:60%;
+ height: 60%;
+ border-radius:50%;
+ background: red; 
+ display: flex; 
+Justify-content: center; 
+font-size: 1em;
+border:2px solid black; 
+color: white; 
+align-items: center;
+ }
+ .y{
+ background: blue
+ }
+ .pend, .pendy{
+ border:4px solid yellow; 
+ box-shadow: 0 0 10px #000;
+ }
+.won{
+animation: ani 0.3s 8 linear; 
+}
+@keyframes ani {
+0%{
+background: #080;
+}
+50%{
+background: #fff;
+}
+100%{
+background: #080;
+  }
+}
+.comp, .you, #comp, #you{
+background: red; 
+display:inline-block;
+border-radius:3px;
+padding:5px;
+float:left;
+color:#fff; 
+text-align:center;
+box-shadow: 0 0 6px #555;
+}
+#comp, #you{
+background: #fff;
+margin: 0 8px; 
+color: black; 
+width: 30px;
+border-radius:8px;
+font-weight: bolder; 
+}
+.you, .comp{
+width:80px
+}
+.you, #you{
+float:right;
+}
+.you{
+background: blue
+}
+#msg{
+position:absolute;
+width:100%;
+top:50px;
+color: gray;
+font-size:2em;
+font-weight: 300;
+text-align:center;
+}
+#won{
+color: green; 
+}
+#lost{
+color:red; 
+}
+.sel{
+width:50%;
+position:absolute;
+bottom: 22px; 
+left:50%;
+text-align:center;
+transform: translateX(-50%);
+}
+select{
+width:100%;
+padding:4px;
+font-size:1.4em;
+border-radius:4px;
+outline: 0;
+}
+ </style>
+	 <body>
+	 
+	<div  class="comp">Computer</div>
+	<div  id="comp">0</div>
+	
+	<div  class="you">You	</div>
+	 	<div  id="you">0</div>
+	 	
+	 	<div id = "msg">Play first</div>
+	 	
+<div  class="main">
+	<div  class="b1"  id="a11" onclick= "ele(this)"></div>
+	<div  class="b1"  id="a12"  onclick= "ele(this)"></div>
+	<div  class="b1"  id="a13"  onclick= "ele(this)"></div>
+	<div  class="b1"  id="a21"  onclick= "ele(this)"></div>
+	<div  class="b1"  id="a22"  onclick= "ele(this)"></div>
+	<div  class="b1"  id="a23"  onclick= "ele(this)"></div>
+	<div  class="b1"  id="a31"  onclick= "ele(this)"></div>
+	<div  class="b1"  id="a32"  onclick= "ele(this)"></div>
+	<div  class="b1"  id="a33"  onclick= "ele(this)"></div>
+	</div>
+	
+	
+	
+	
+	<div  class="sel">
+	Difficulty: <br>
+	<select onchange = "difficulty(this.value)">
+	<option value= "1">Too easy</option>
+	<option value= "2">Easy</option>
+	<option value= "3">Normal</option>
+	<option value= "4">Hard</option>
+	<option value= "5" selected>Profesional</option>
+	</select>
+	</div>
+	
+	<script>
+
+var yyy = you.innerText.trim();
+var ccc = 0 ;
+
+	
+	var dfc =  5;
+	function difficulty(x){
+	dfc = Number(x);
+	}	
+  /* y for your turn, c for computer's turn */
+	var dontClick = false; /*prevents you from clicking twice*/
+	var turn = "y";
+var gameOver = false; 
+
+	function ele(x){
+	tp=1;
+if(dontClick==false && gameOver==false){
+		//your turn
+	if(turn == "y") {
+	var allY = x.parentNode.getElementsByClassName("y");
+	var pendY = x.parentNode.getElementsByClassName("pendy");
+	if(x.children.length == 0 && allY.length == 3 && pendY[0]){
+	var  n = document.createElement("div");
+	n.classList = "y";
+	n.innerText = "You";
+	x.appendChild(n);
+	pendY[0].remove();
+	turn = "c";
+	dontClick = true;
+	var wc = winCheck("y");		
+	if(!wc){
+	compc();
+	}
+  return;
+	 }
+	
+	if(pendY[0]){
+	pendY[0].classList.remove("pendy");
+	}
+	
+	if(allY.length == 3 && pendY.length < 1 && x.children[0].classList.contains("y")){
+	  x.children[0].classList.add("pendy");
+	  }
+	
+	if((x.children.length == 0 && allY.length < 3) ){
+	var n = document.createElement("div");
+	n.classList = "y";
+	n.innerText = "You";
+	x.appendChild(n);
+	turn = "c";
+	dontClick = true;
+	var wc = winCheck("y");		
+	if(!wc){
+	compc();
+	}
+	return;
+	    }
+	  }
+	     
+	  //computer's turn
+	  if(turn == "c") {
+	var allC = x.parentNode.getElementsByClassName("c");
+	
+	var pend = x.parentNode.getElementsByClassName("pend");
+	
+	if(x.children.length == 0 && allC.length == 3 && pend[0]){
+	var  e = document.createElement("div");
+	e.classList = "c";
+	e.innerText = "Comp";
+	x.appendChild(e);
+	turn= "y";
+	pend[0].remove();
+	pend[0].classList.remove("pend");
+	  }
+	
+	if(pend[0]){
+	pend[0].classList.remove("pend");
+	}
+	
+	if(allC.length == 3 && pend.length < 1 ){
+	  x.children[0].classList.add("pend");
+	  }
+	
+	if(x.children.length == 0 && allC.length < 3) {
+	var e = document.createElement("div");
+	e.classList = "c";
+	e.innerText = "Comp";
+	x.appendChild(e);
+	turn = "y";
+	       }       
+	    }
+	  }
+	}//ele() function ends here
+	
+	
+	
+	
+	//Computer's function only
+	function compc(){
+	ww = [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2,  3, 3, 3, 3, 3, 3, 4, 4, 4, 4];
+	var kek = Math.floor(Math.random() * ww.length);
+	kek = ww[kek];
+	msg.innerHTML = "Computer's turn";
+	var tm= Math.floor(Math.random() * 1200) + 600;
+	if(turn == "c"){
+	setTimeout(function(){ 
+	dontClick = false;
+	var el =
+	document.getElementsByClassName("c");
+	if(el[0]){
+	if(el.length == 3){	
+	//comp chance to win
+	if(dfc != kek) {
+	if(checkMove("c", true)){
+	if(document.
+	querySelectorAll(".dont:not(.y)").length == 3){
+	document.querySelectorAll(".dont:not(.y)")[0].classList.remove("dont");
+	}
+	var c = document.querySelectorAll(".c:not(.dont)");	
+   }
+	//comp to stop u from winning
+else if(checkMove("y", false)){
+	var c = document.querySelectorAll(".c:not(.dont)");
+	}else{
+	var c = document.querySelectorAll(".c");
+   	}
+	}//if (dfc kek) ends
+	else{
+	var c = document.querySelectorAll(".c");
+   	}
+var cr = Math.floor(Math.random() * c.length);
+c[cr].click();
+//removing "dont" class from all elements
+var tr = document.querySelectorAll(".dont");
+for(i=0; i<tr.length; i++){
+tr[i].classList.remove("dont");
+}
+setTimeout(function(){ kkp() }, 500);
+return  //if (length == 3) ends; 
+	  }
+	}		  
+kkp();
+}, tm);
+	  }
+	}//compc() function ended
+	
+
+function kkp(){
+var cc = checkAboutToWin("c");
+var yy = checkAboutToWin("y");
+var kek = Math.floor(Math.random() * ww.length);
+	kek = ww[kek];
+	if(dfc != kek) {
+if(cc) {
+document.querySelectorAll(".b1")[cc-1].click();
+}
+else if(yy) {
+document.querySelectorAll(".b1")[yy-1].click();
+} else {
+c = document.querySelectorAll(".b1:empty");
+cr = Math.floor(Math.random() * c.length);
+ret = 0;
+c[cr].click();
+ }
+}// if(dfc kek) ends
+else {
+c = document.querySelectorAll(".b1:empty");
+cr = Math.floor(Math.random() * c.length);
+ret = 0;
+c[cr].click();
+ }
+msg.innerHTML = "Your turn";
+winCheck("c");
+}//kkp
+	
+	
+	
+	
+      	//winning checker function
+	function winCheck(x){ 	
+if( a11.children[0] && a12.children[0] &&	 a13.children[0] ){
+if( a11.children[0].classList.contains(x) && a12.children[0].classList.contains(x) &&	 a13.children[0].classList.contains(x) ){
+	 a11.classList.add("won");
+	 a12.classList.add("won");
+	 a13.classList.add("won");
+	 if(x == "y"){
+	 you.innerHTML = Number(you.innerHTML) + 1;
+	 msg.innerHTML = "<div id='won' >You won</div>";
+	    }else{
+	   comp.innerHTML = Number(comp.innerHTML) + 1;
+	   msg.innerHTML = "<div id='lost' >You Lost</div>";
+	    }
+	 gameOver = true; 
+	 }
+  }
+	 
+	 if( a21.children[0] && a22.children[0] &&	 a23.children[0] ){
+if( a21.children[0].classList.contains(x) && a22.children[0].classList.contains(x) &&	 a23.children[0].classList.contains(x) ){
+	 a21.classList.add("won");
+	 a22.classList.add("won");
+	 a23.classList.add("won");
+	 if(x == "y"){
+	 you.innerHTML = Number(you.innerHTML) + 1;
+	 msg.innerHTML = "<div id='won' >You won</div>";
+	    }else{
+	   comp.innerHTML = Number(comp.innerHTML) + 1;
+	   msg.innerHTML = "<div id='lost' >You Lost</div>";
+	    }
+	 gameOver = true; 
+	 }
+  }
+	 
+	 if( a31.children[0] && a32.children[0] &&	 a33.children[0] ){
+if( a31.children[0].classList.contains(x) && a32.children[0].classList.contains(x) &&	 a33.children[0].classList.contains(x) ){
+	 a31.classList.add("won");
+	 a32.classList.add("won");
+	 a33.classList.add("won");
+	 if(x == "y"){
+	 you.innerHTML = Number(you.innerHTML) + 1;
+	 msg.innerHTML = "<div id='won' >You won</div>";
+	    }else{
+	   comp.innerHTML = Number(comp.innerHTML) + 1;
+	   msg.innerHTML = "<div id='lost' >You Lost</div>";
+	    }
+	 gameOver = true; 
+	 }
+  }//horizontal ends
+  
+  
+  	 if( a11.children[0] && a21.children[0] &&	 a31.children[0] ){
+if( a11.children[0].classList.contains(x) && a21.children[0].classList.contains(x) &&	 a31.children[0].classList.contains(x) ){
+	 a11.classList.add("won");
+	 a21.classList.add("won");
+	 a31.classList.add("won");
+	 if(x == "y"){
+	 you.innerHTML = Number(you.innerHTML) + 1;
+	 msg.innerHTML = "<div id='won' >You won</div>";
+	    }else{
+	   comp.innerHTML = Number(comp.innerHTML) + 1;
+	   msg.innerHTML = "<div id='lost' >You Lost</div>";
+	    }
+	 gameOver = true; 
+	 }
+  }
+  
+	 if( a12.children[0] && a22.children[0] &&	 a32.children[0] ){
+if( a12.children[0].classList.contains(x) && a22.children[0].classList.contains(x) &&	 a32.children[0].classList.contains(x) ){
+	 a12.classList.add("won");
+	 a22.classList.add("won");
+	 a32.classList.add("won");
+	 if(x == "y"){
+	 you.innerHTML = Number(you.innerHTML) + 1;
+	 msg.innerHTML = "<div id='won' >You won</div>";
+	    }else{
+	   comp.innerHTML = Number(comp.innerHTML) + 1;
+	   msg.innerHTML = "<div id='lost' >You Lost</div>";
+	    }
+	 gameOver = true; 
+	 }
+  }
+	 
+	  if( a13.children[0] && a23.children[0] &&	 a33.children[0] ){
+if( a13.children[0].classList.contains(x) && a23.children[0].classList.contains(x) &&	 a33.children[0].classList.contains(x) ){
+	 a13.classList.add("won");
+	 a23.classList.add("won");
+	 a33.classList.add("won");
+	 if(x == "y"){
+	 you.innerHTML = Number(you.innerHTML) + 1;
+	 msg.innerHTML = "<div id='won' >You won</div>";
+	    }else{
+	   comp.innerHTML = Number(comp.innerHTML) + 1;
+	   msg.innerHTML = "<div id='lost' >You Lost</div>";
+	    }
+	 gameOver = true; 
+	 }
+  }//vertical ends
+	 
+	 
+	 if(a11.children[0] && a22.children[0] &&	 a33.children[0] ){
+if( a11.children[0].classList.contains(x) && a22.children[0].classList.contains(x) &&	 a33.children[0].classList.contains(x) ){
+	 a11.classList.add("won");
+	 a22.classList.add("won");
+	 a33.classList.add("won");
+	 if(x == "y"){
+	 you.innerHTML = Number(you.innerHTML) + 1;
+	 msg.innerHTML = "<div id='won' >You won</div>";
+	    }else{
+	   comp.innerHTML = Number(comp.innerHTML) + 1;
+	   msg.innerHTML = "<div id='lost' >You Lost</div>";
+	    }
+	 gameOver = true; 
+	 }
+  }
+  
+  if( a13.children[0] && a22.children[0] &&	 a31.children[0] ){
+if( a13.children[0].classList.contains(x) && a22.children[0].classList.contains(x) &&	 a31.children[0].classList.contains(x) ){
+	 a13.classList.add("won");
+	 a22.classList.add("won");
+	 a31.classList.add("won");
+	 if(x == "y"){
+	 you.innerHTML = Number(you.innerHTML) + 1;
+	 msg.innerHTML = "<div id='won' >You won</div>";
+	    }else{
+	   comp.innerHTML = Number(comp.innerHTML) + 1;
+	   msg.innerHTML = "<div id='lost' >You Lost</div>";
+	    }
+	 gameOver = true; 
+	 }
+  }//diagonal ends	 
+  if(document.querySelector(".won")){
+  return true; 
+  }
+  return false; 
+	}//winCheck ends
+	
+	
+	var q = document.querySelectorAll(".b1");
+	for(i=0; i<q.length; i++){
+	q[i].setAttribute(
+	"onanimationend","aniend()"); 
+	}
+	tp=1;
+	function aniend(x)   {
+	if(tp == 1){
+	tp=0;
+	msg.innerHTML = "Play first";
+	//when you win, comp plays next.
+	if(turn == "c"){
+	compc();
+	}
+	for(i=0; i<q.length; i++){
+	q[i].innerHTML = "";
+	q[i].classList.remove("won");
+   	}	
+	dontClick = false;
+	gameOver = false; 
+    }
+	}
+	
+	
+	function checkMove(h, k) {	
+	if(k == true){
+	function found(x){
+	if(document.querySelectorAll(".b1")[x].innerHTML == ""){
+	return true; 
+	  }	else{return false}
+	}
+	}else{
+  function found(x){
+	if(document.querySelectorAll(".b1")[x].children[0]){
+	if(document.querySelectorAll(".b1")[x].children[0].classList.contains("c")){
+	return true; 
+   	 } else{return false}
+   	}
+   }
+ }
+	function e(x){
+	if(document.querySelectorAll(".b1")[x].children[0]){
+	var u = document.querySelectorAll(".b1")[x].children[0].classList.contains(h);
+	return u; 
+	}
+}
+if (found(0) && ((e(1) && e(2)) || (e(3) && e(6)) || (e(4) && e(8)))){
+	if(k == true) {
+	if(e(1) && e(2)){
+	document.querySelectorAll(".b1")[1].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[2].children[0].classList.add("dont");
+	}
+	if(e(3) && e(6)){
+	document.querySelectorAll(".b1")[3].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[6].children[0].classList.add("dont");
+	}
+	if(e(4) && e(8)){
+	document.querySelectorAll(".b1")[4].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[8].children[0].classList.add("dont");
+	}
+	}else {
+	document.querySelectorAll(".b1")[0].children[0].classList.add("dont");
+   	 }	
+   	}
+   	
+   	
+ 	if (found(1) && ((e(0) && e(2)) || (e(4) && e(7)))){
+ 	if(k == true) {
+	if(e(0) && e(2)){
+	document.querySelectorAll(".b1")[0].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[2].children[0].classList.add("dont");
+	}
+	if(e(4) && e(7)){
+	document.querySelectorAll(".b1")[4].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[7].children[0].classList.add("dont");
+	}
+	}else {
+   		document.querySelectorAll(".b1")[1].children[0].classList.add("dont");
+   	}	
+  }
+  
+   		if (found(2) && ((e(0) && e(1)) || (e(4) && e(6)) || (e(5) && e(8)))){
+  if(k == true) {
+	if(e(0) && e(1)){
+	document.querySelectorAll(".b1")[0].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[1].children[0].classList.add("dont");
+	}
+	if(e(4) && e(6)){
+	document.querySelectorAll(".b1")[4].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[6].children[0].classList.add("dont");
+	}
+	if(e(5) && e(8)){
+	document.querySelectorAll(".b1")[5].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[8].children[0].classList.add("dont");
+	}
+	}else {
+   		document.querySelectorAll(".b1")[2].children[0].classList.add("dont");
+   	}	
+   	}
+   	
+   	
+ 	if (found(3) && ((e(0) && e(6)) || (e(4) && e(5)))){
+ 	if(k == true) {
+	if(e(0) && e(6)){
+	document.querySelectorAll(".b1")[0].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[6].children[0].classList.add("dont");
+	}
+	if(e(4) && e(5)){
+	document.querySelectorAll(".b1")[4].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[5].children[0].classList.add("dont");
+	}
+	}else {
+   			document.querySelectorAll(".b1")[3].children[0].classList.add("dont");
+   	}	
+   	}
+   	
+   	
+   if (found(4) && ((e(0) && e(8)) || (e(1) && e(7)) || (e(2) && e(6)) || (e(3) && e(5)))){
+   if(k == true) {
+	if(e(0) && e(8)){
+	document.querySelectorAll(".b1")[0].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[8].children[0].classList.add("dont");
+	}
+	if(e(1) && e(7)){
+	document.querySelectorAll(".b1")[1].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[7].children[0].classList.add("dont");
+	}
+	if(e(2) && e(6)){
+	document.querySelectorAll(".b1")[2].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[6].children[0].classList.add("dont");
+	}
+	if(e(3) && e(5)){
+	document.querySelectorAll(".b1")[3].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[5].children[0].classList.add("dont");
+	}
+	}else {
+   			document.querySelectorAll(".b1")[4].children[0].classList.add("dont");
+   	}	
+   	}
+   	
+   	if (found(5) && ((e(2) && e(8)) || (e(3) && e(4)))){
+   	if(k == true) {
+	if(e(2) && e(8)){
+	document.querySelectorAll(".b1")[2].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[8].children[0].classList.add("dont");
+	}
+	if(e(3) && e(4)){
+	document.querySelectorAll(".b1")[3].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[4].children[0].classList.add("dont");
+	}
+	}else {
+   	document.querySelectorAll(".b1")[5].children[0].classList.add("dont");
+   	}	
+   	}
+   	
+   	if (found(6) && ((e(0) && e(3)) || (e(2) && e(4)) || (e(7) && e(8)))){
+   	if(k == true) {
+	if(e(0) && e(3)){
+	document.querySelectorAll(".b1")[0].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[3].children[0].classList.add("dont");
+	}
+	if(e(2) && e(4)){
+	document.querySelectorAll(".b1")[2].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[4].children[0].classList.add("dont");
+	}
+	if(e(7) && e(8)){
+	document.querySelectorAll(".b1")[7].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[8].children[0].classList.add("dont");
+	}
+	}else {
+   	document.querySelectorAll(".b1")[6].children[0].classList.add("dont");
+   	}	
+   	}
+   	
+   	
+   	if (found(7) && ((e(1) && e(4)) || (e(6) && e(8)))){
+   	if(k == true) {
+	if(e(1) && e(4)){
+	document.querySelectorAll(".b1")[1].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[4].children[0].classList.add("dont");
+	}
+	if(e(6) && e(8)){
+	document.querySelectorAll(".b1")[6].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[8].children[0].classList.add("dont");
+	}
+	}else {
+   	document.querySelectorAll(".b1")[7].children[0].classList.add("dont");
+   	}	
+   	}
+   	
+   	
+   	if (found(8) && ((e(0) && e(4)) || (e(2) && e(5)) || (e(6) && e(7)))){
+   	if(k == true) {
+	if(e(0) && e(4)){
+	document.querySelectorAll(".b1")[0].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[4].children[0].classList.add("dont");
+	}
+	if(e(2) && e(5)){
+	document.querySelectorAll(".b1")[2].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[5].children[0].classList.add("dont");
+	}
+	if(e(6) && e(8)){
+	document.querySelectorAll(".b1")[6].children[0].classList.add("dont");
+	document.querySelectorAll(".b1")[8].children[0].classList.add("dont");
+	}
+	}else {
+   	document.querySelectorAll(".b1")[8].children[0].classList.add("dont");
+   	}	
+   	}
+     	
+   	if(document.querySelector(".dont")) {
+   	return true;   	
+   	}else{
+   	return false; 
+   	}  	
+	}//checkMove ended
+	
+	
+	
+	function checkAboutToWin(w) {
+	function empty(x){
+	if(document.querySelectorAll(".b1")[x].innerHTML == ""){
+	return true; 
+   	}
+	}
+	function e(x){
+	if(document.querySelectorAll(".b1")[x].childNodes[0]){
+	var u = (document.querySelectorAll(".b1")[x].childNodes[0].classList.contains(w) && !document.querySelectorAll(".b1")[x].childNodes[0].classList.contains("pend")) ;
+	return u; 
+	}
+}		
+	if (empty(0) && ((e(1) && e(2)) || (e(3) && e(6)) || (e(4) && e(8)))){
+	return 1;
+   	}	
+   		if (empty(1) && ((e(0) && e(2)) || (e(4) && e(7)))){
+	return 2
+   	}	
+   		if (empty(2) && ((e(0) && e(1)) || (e(4) && e(6)) || (e(5) && e(8)))){
+	return 3
+   	}	
+   			if (empty(3) && ((e(0) && e(6)) || (e(4) && e(5)))){
+	return 4
+   	}	
+   			if (empty(4) && ((e(0) && e(8)) || (e(1) && e(7)) || (e(2) && e(6)) || (e(3) && e(5)))){
+	return 5
+   	}	
+   	if (empty(5) && ((e(2) && e(8)) || (e(3) && e(4)))){
+	return 6
+   	}	
+   	if (empty(6) && ((e(0) && e(3)) || (e(2) && e(4)) || (e(7) && e(8)))){
+	return 7
+   	}	
+   	if (empty(7) && ((e(1) && e(4)) || (e(6) && e(8)))){
+	return 8
+   	}	
+   	if (empty(8) && ((e(0) && e(4)) || (e(2) && e(5)) || (e(6) && e(7)))){
+	return 9
+   	}	
+	}
+	</script>
+	 </body>
+ </html>

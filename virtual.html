@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+ <head>
+	 <title>Untitled</title>
+	 <meta charset="UTF-8"/>
+	 <meta name = "viewport" content = "width=device-width, initial-scale=1, user-scalable=no" />
+	 <script src="lib/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <style>
+ *{
+ box-sizing: border-box;
+ outline: none;
+ }
+ body {
+ margin:0;
+ padding: 0;
+ user-select:none;
+ font-family: arial
+ }
+ #main{
+ width: 100vw;
+ height: 90vh; 
+ background: #000;
+ display:grid;
+ grid-template-columns: auto; 
+ grid-template-rows: auto; 
+ }
+ #status{
+ background-color: #777;
+ height: 10vh;
+ }
+ #time{
+ float:right;
+ height: 100%;
+ background: #bbb; 
+ width: 10%;
+ font-size: 1.6em; 
+ font-weight: 500;
+ color: #f50;
+ display:inline-flex;
+ Justify-content: center; 
+ align-items: center; 
+ padding: 0 8px;
+ box-sizing: content-box; 
+ }
+ #btn{
+ padding:1vh 15px;
+ border-radius: 8px;
+ margin:1vw;
+ color:#fff; 
+ background: #c00; 
+ border:1px solid black; 
+ }
+ #btn:active{
+ transform: scale(0.9, 0.9);
+ background: #800; 
+ }
+ #btn:last-of-type{
+ background: #b60
+ }
+ .row{
+ position: relative; 
+ }
+ .inner-row{
+ height:100%;
+ width:100%;
+ color: #fff;
+ position: absolute;
+ display:block;
+ white-space: nowrap;
+ overflow:hidden;
+ }
+ .inner-row * { 
+ height:100
+  }
+ .row:nth-child(even) .inner-row{
+  background: #444; 
+  animation: even 1.5s;
+  -webkit-animation: even 1.5s;
+  transition: .4s; 
+  }
+   .row:nth-child(odd) .inner-row{
+  background: #666; 
+  animation: odd 1.5s;
+  -webkit-animation: odd 1.5s;
+  }
+  #main .match-active{
+  background: #046; 
+  }
+  @keyframes even {
+  from {
+  right: 100vw;
+  }
+  to{
+  right: 0vw;
+    }
+  }
+    @keyframes odd {
+  from {
+ left: 100vw;
+  }
+  to{
+ left: 0vw;
+    }
+  }
+  @-webkit-keyframes even {
+  from {
+  right: 100vw;
+  }
+  to{
+  right: 0vw;
+    }
+  }
+    @-webkit-keyframes odd {
+  from {
+ left: 100vw;
+  }
+  to{
+ left: 0vw;
+    }
+  }
+   .board{
+  border-right: 1px solid #aaa; 
+  border-left: 1px solid #aaa; 
+  width: 35vw;
+  height:100%;
+  padding:0 2px;
+  display:inline-flex;
+ Justify-content: space-between;
+  }
+  .all-sel{
+  width: 60vw;
+  height:100%;
+  display:inline-flex;
+  }
+  .num, .team, .scdisp, .sel{
+  display:inline-flex;
+  Justify-content: center; 
+  align-items: center;   
+  font-size:66%;
+  flex-wrap: wrap; 
+  position:relative;
+  }
+  .sel{
+  flex:1;
+  transition: .3s; 
+  border: 0.1px solid #555;
+  }
+  .board .team{
+  font-size:80%;
+  flex-basis: 25%; 
+  }
+    .board .scdisp{
+  flex-basis: 45%; 
+  Justify-content: space-around; 
+  flex-direction: row; 
+  height:100%;
+  }
+  .row .num{
+  width: 3vw;
+  }
+    .row:last-child .num{
+  Justify-content: flex-start; 
+  }
+  
+  /*odd text color*/
+  .odd{
+  color: #aaf; 
+  font-size:75%;
+  text-align: center; 
+  width:100%;
+  position:absolute;
+  bottom: 15%;
+  }
+  .row:last-child .num{
+  padding-right:4px;
+  }
+  .kk-wd, .kk-ov, .kk-g{
+  box-shadow: inset 0 0 15px white; 
+  border: .1px solid #fff
+  }
+  
+  /*bottom warning when error occurred in selection*/
+  #warn{
+  display:none;
+  color:#fff; 
+  position: fixed;
+  background: #000;
+  left:50%;
+  z-index: 1;
+  padding:8px;
+  width: 80%;
+  text-align: center;
+  border-radius: 25px; 
+  margin: auto; 
+  transform: translateX(-50%);
+  opacity:0;
+  animation: warn 3s; 
+  }
+  
+  /*shade yellow for winning*/
+  .winning{
+  background-color: #a80
+  }
+  @keyframes warn{
+  0%, 100%{
+  bottom: -40px;
+  opacity:0
+  }
+  20%, 80%{
+  bottom: 10px;
+  opacity:1;
+   }
+  }
+  
+  /*score animate digit*/
+  .sc{
+  animation: scored 1s .3s;
+  }
+  @keyframes scored{
+  20%, 90%{
+  opacity: 0;
+  }
+  73%, 100%{
+  opacity: 1;
+    }
+  }
+  
+  .sc-active{
+  animation: aa 0.7s;
+  }
+  @keyframes aa {
+  20%, 80%{
+  box-shadow: inset 0 0 15px #fff; 
+    }
+  }
+ 
+ .lostAlert, .wonAlert{
+ text-align:center;
+ background: #a00; 
+ font-weight: bold; 
+ font-size: 1.5em; 
+ color:#fff; 
+ display:inline-block;
+ padding:5px 8px; 
+ border-radius: 5px; 
+ position: absolute;
+ left: 50%;
+ top: -40px;
+ opacity: 0;
+ transition: 1s; 
+ transform: translate(-50%);
+ box-shadow: 0 3px 9px #333
+ }
+  .wonAlert{
+background: #070; 
+  }
+.showAlert{
+opacity: 1;
+ top: 10px;
+ }
+
+ </style>
+ </head>
+	 <body>
+	 
+	 <div id = "warn" onanimationend = "this.style.display='none' ">Sorry, only one selection is allowed for this type of selection.</div>
+	 <div  class="lostAlert">You Lost</div>
+	  <div  class="wonAlert">You Won</div>
+	 
+	 <div id  ="status">
+	<button id = "btn">Start</button>
+	<button id = "btn" onclick = "location.reload()">Reload</button>
+	<div id  = "time">00'</div>
+	</div>
+	<div  id="main">
+	<div  class="row">
+	<div class = "inner-row">
+	<div  class="num"></div>
+	<div  class="board">
+	<div  class="home-team team"></div>
+	<div class = "scdisp">	
+	<div  class="home-score score"></div>
+	<div  class="dash">v</div>
+	<div  class="away-score score"></div>
+	</div>
+	<div  class="away-team team"></div>
+	</div>
+	<div class = "all-sel">
+	<div  class="home-win sel">Home</div>
+	<div  class="away-win sel">Away</div>
+	<div  class="gg sel">GG</div>	
+	<div  class="ov1 sel">Ov 1.5</div>
+	<div  class="ov2 sel">Ov 2.5</div>
+	<div  class="ov3 sel">Ov 3.5</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	
+	
+	<script>
+	try{
+$(document).ready(function(){
+var toStart = false; /*prevents pressing of start button, and allows it only after animation.*/
+	var ctime = 0; //Ft starts from 0' to 90'
+	var Ft = 90;	
+	/*scRate is rate of scoring by teams' strength, and scRand is scoring randomly without applying team strength, both must be assigned and must be less than 20 */
+	var scRate = 5;  
+	var scRand = 2;
+	$("#btn").click(function(){
+	if(!document.querySelector("[class*=kk]")){
+	alert("You must make at least one prediction.\nClick on any button blow to predict.");
+	return; 
+	}
+	if(toStart === true && ctime === 0) {
+	$(".row:nth-child(even) .inner-row").addClass("match-active");
+	startMatch(); //to start match 
+  startTime(); //to start timer
+	}
+	})
+	$(".score").on("animationend", function(e){
+	$(this).removeClass("sc");
+	$(this).parents(".board").
+	removeClass("sc-active");
+	})
+//clone and duplicate the single row to be 10 rows
+	for(i=1; i<10; i++){
+	let row = $(".row:first").clone(true);
+	$("#main").append(row);
+	  }
+	  
+	  //increment & put numbers from 1 to 10 into the rows
+	 $(".num").text(function(i, e){
+	 return i+1;
+	 });
+	  	  
+	  //prevent selection of 3 options in home, draw, away. but can select only two
+	$(".sel:not([class^=ov], .gg)").click(function(){
+	if(ctime === 0){
+	if($(this).parent().find(".kk-wd").length !== 1 || $(this).hasClass("kk-wd")){
+	$(this).toggleClass("kk-wd");
+	}else{
+	$("#warn").css("display", "block");
+	}
+	}//if ctime 0
+	})	
+	
+	  //prevent selection of 2 options in ov2 and ov4 only
+	$("[class^=ov]").click(function(){
+	if(ctime === 0){
+	if(!$(this).parent().find(".kk-ov").length || $(this).hasClass("kk-ov")){
+	$(this).toggleClass("kk-ov");
+	}else{
+	$("#warn").css("display", "block");
+	}
+  }//if ctime 0
+	})	
+	
+	//toggle GG
+	$(".gg").click(function(){
+		if(ctime === 0){
+	$(this).toggleClass("kk-g");
+		}//if ctime 0
+	})	
+	
+	//store all teams and their strength in array
+	var arr_teams = [
+	{name: "MNC", strength: 30},
+	{name: "LIV", strength: 29.8},
+	{name: "MNU", strength: 23},
+	{name: "TOT", strength: 23.5},
+	{name: "CHE", strength: 16.9},
+	{name: "LEI", strength: 24.1},
+	{name: "ARS", strength: 16.7},
+	{name: "EVE", strength: 15.2},
+	{name: "WOL", strength: 10},
+	{name: "SHE", strength: 13},
+	{name: "BUR", strength: 8},
+	{name: "SOU", strength: 8.4},
+	{name: "NEW", strength: 8.8},
+	{name: "CRY", strength: 9},
+	{name: "BHA", strength: 8.6},
+	{name: "WHU", strength: 8.2},
+	{name: "BOU", strength: 8.5},
+	{name: "WAT", strength: 7},
+	{name: "NWC", strength: 5},
+	{name: "ASV", strength: 6}
+	];
+	
+//sort teams array randomly, before appending 
+	arr_teams.sort(function(){
+	return 0.5 - Math.random()
+	})
+	
+	//new array for odds; 
+	var arr_odds = [ ];
+	
+	//collecting strength for odd preparation.
+	for( i=0; i<arr_teams.length-1; i++){
+	var h = arr_teams[i].strength;
+	var a = arr_teams[i+1].strength;
+	//generating odd
+	var hx = (((a/(h+a))+1)**4)/2
+	var ax = (((h/(h+a))+1)**4)/2
+	if(hx < ax) {
+	hx -= 0.4
+	ax += 0.7
+	} else if( ax < hx) {
+	ax -= 0.4
+	hx += 0.7
+	}
+	if(hx < 1){
+	hx += 1;
+	}
+	if(ax < 1){
+	ax += 1;
+	}
+	hx = hx.toFixed(2);
+	ax = ax.toFixed(2);
+	//putting generated odds into arr_odds array
+	arr_odds.push(hx);
+	arr_odds.push(ax);
+	 i++;	
+	}
+	
+	//ANIMATION-END. 
+	$(".inner-row:first").on("animationend",function(){
+	
+	//append teams names from array to html table when animation ends
+	for(i=0; i<$(".team").length; i++){
+	$(".team").eq(i).text(arr_teams[i].name)
+	}
+	
+	
+	function rand(min, max) {
+	return (Math.random() * (max-min))+min
+	}
+	//append odds in html elements
+	  (function(){
+	$("[class*=win]").html(function(i, res){
+	var odd = arr_odds[i];
+	return res += "<b class='odd'> "+odd+"</b>";
+	})
+	$(".gg").html(function(i, res){
+	var odd = rand(1.7, 2.2);
+	odd = odd.toFixed(2);
+	return res += "<b class='odd'> "+odd+"</b>";
+   })
+   $(".ov1").html(function(i, res){
+	var odd = rand(1.2, 1.6);
+	odd = odd.toFixed(2);
+	return res += "<b class='odd'> "+odd+"</b>";
+   })
+   $(".ov2").html(function(i, res){
+	var odd = rand(1.8, 2.5);
+	odd = odd.toFixed(2);
+	return res += "<b class='odd'> "+odd+"</b>";
+   })
+    $(".ov3").html(function(i, res){
+	var odd = rand(2.8, 4.5);
+	odd = odd.toFixed(2);
+	return res += "<b class='odd'> "+odd+"</b>";
+   })
+ })()
+
+//add 0 to scores and - to separator
+$(".score").text(0);
+$(".dash").text("-");
+toStart = true; //allows pressing start button  that was disallowed at the beginning of this jquery. i.e toStart
+$(".inner-row:first").off("animationend")//removing the event.
+	})//end of animationend
+	
+	
+	//Match starts
+function startMatch(){
+let i = Math.floor(Math.random() * 20);
+ //rate of scoring rate variable is in the global i.e scRate
+var scProb = Math.random() * 20;//rate of scoring together with scRate
+var rnd = Math.floor(Math.random() * 8);
+if((rnd>arr_odds[i] && scRate>scProb) || scProb < scRand) { 
+var sc = Number($(".score").eq(i).text());
+if(sc < 9) { 
+sc++ 
+  }
+$(".score").eq(i).text(function(){
+$(this).parents(".board").
+	addClass("sc-active");
+$(this).addClass("sc");
+dRow = $(this).parents(".inner-row");
+return sc; 
+})
+shadeWin(dRow);
+}
+	tm = setTimeout(startMatch, 600);
+	}
+	
+	
+	//shade element for indicating winnings
+	function shadeWin(x) {
+	var h = Number(x.find(".home-score").text());
+	var a = Number(x.find(".away-score").text());
+	if(h>a){
+	x.find(".home-win").addClass("winning");
+	}else{
+	x.find(".home-win").
+	removeClass("winning");
+	}
+	if(h<a){
+	x.find(".away-win").addClass("winning");
+	}else{
+	x.find(".away-win").
+	removeClass("winning");
+	}
+	if(h>0 && a>0){
+	x.find(".gg").addClass("winning");
+	}
+	if(h+a > 1){
+	x.find(".ov1").addClass("winning");
+	}
+	if(h+a > 2){
+	x.find(".ov2").addClass("winning");
+	}
+	if(h+a > 3){
+	x.find(".ov3").addClass("winning");
+	}
+	}//function ended 
+	
+
+//shade green and red for winLost
+	function checkWinLost() {
+  	$("[class*=kk]").each(function(){
+  if($(this).hasClass("winning")){
+  $(this).addClass("won");
+  $(this).css("background", "#070");
+  }else{
+  $(this).addClass("lost");
+  $(this).css("background", "#800");
+    }
+  })
+ showWinAlert();
+ }//fn end
+
+
+//displaye lostWin alert after the match
+function showWinAlert(){
+var w = $(".won")[0];
+var L = $(".lost")[0];
+if(L){
+$(".lostAlert").addClass("showAlert");
+}else if(w){
+$(".wonAlert").addClass("showAlert");
+  }
+}
+
+	//time counter, note ctime = 0;
+	function startTime(){
+	if(ctime === Ft) {
+	clearTimeout(tm)
+  $("#time").text("Ft");
+  $(".row:nth-child(even) .inner-row").removeClass("match-active");
+  checkWinLost();
+	return; 
+	  }
+	  
+	ctime++
+	var nn
+	if(ctime < 10){
+	nn = "0"+ctime+"' ";
+	}else{
+	nn = ctime+"' ";
+	} 
+	$("#time").text(nn);
+	setTimeout(startTime, 1000);
+	/*
+	fetch("time")
+	.then(x=>x.text())
+	.then(x=>{
+	ctime = Number(x);
+var nn = ctime<10 ? "0"+ctime:ctime; 
+	$("#time").text(nn+"'");
+	setTimeout(startTime, 1000);
+	 })
+	 */
+	}
+
+	})//end of jquery
+	
+}catch(e){
+alert(e.stack)
+}
+	</script>
+	 </body>
+ </html>
