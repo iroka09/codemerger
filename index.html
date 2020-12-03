@@ -554,7 +554,7 @@ font-family: sans-serif;
 	}
 	#cookieCont.show #cookie{
 	bottom: 2px;
-	opacity:.8;
+	opacity: 1
 	}
 	#cookie .cl{
 	border:0;
@@ -641,6 +641,8 @@ padding: 0 20px;
 	</a></li>
 	<li><a href="#contact">Contact</a></li>
 	<li><a href= "#about">About</a></li>
+	<li><a onclick = "fullscreen(true)">Fullscreen mode</a></li>
+	<li><a onclick = "fullscreen(false)">Exit fullscreen</a></li>
 	</ul>
 	
 	<ul class="social-media-icons">
@@ -895,6 +897,7 @@ location = this.src
 	
 	
 	var _menu = document.querySelector(".menu");
+	var sc;
 	function scroll() {
 	var page = pageYOffset;
 	if( page > 500) {
@@ -908,6 +911,7 @@ location = this.src
     	}else{   	
     	_menu.classList.add("show");
     	}
+    	
 	}
 	
 	function form(form) {
@@ -1033,7 +1037,6 @@ initialX = false, finalX = false;
 	
 	
 	$(".fa-bars").click((e) => {	
-	  e.stopImmediatePropagation()
 	$(".bar").addClass("active");
 	   })
 	   
@@ -1044,7 +1047,34 @@ initialX = false, finalX = false;
 	 
 	
 	})
-	 
+	
+function fullscreen(x) {
+var ele = document.documentElement;
+if(x) {
+if(ele.requestFullscreen) {
+ele.requestFullscreen();
+}
+if(ele.webkitRequestFullscreen) {
+ele.webkitRequestFullscreen();
+}
+if(ele.msRequestFullscreen) {
+ele.msRequestFullscreen();
+   }
+}
+else{
+ele = document;
+if(ele.exitFullscreen) {
+ele.exitFullscreen();
+}
+if(ele.webkitExitFullscreen) {
+ele.webkitExitFullscreen();
+}
+if(ele.msExitFullscreen) {
+ele.msExitFullscreen();
+   }
+}
+}
+
 	</script>
 	 </body>
  </html>
