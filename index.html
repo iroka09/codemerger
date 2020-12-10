@@ -3,9 +3,9 @@
  <head>
 	 <title>merge code</title>
 	 <meta charset="UTF-8"/>
-	<meta http-equiv= "content-type" content= 
+	 <meta http-equiv= "content-type" content= 
 	 "text/html">
-	 	<!-- <meta http-equiv= "cache-control" content= "no-store; max-age=0"> -->
+	 	 <meta http-equiv= "cache-control" content= "no-store; max-age=0">
 	 	 <!-- SEO FRIENDLY -->
 	 <meta name= "description" content= "A showcase of beautiful webpage template design.">
 	 <meta name= "keywords" value= "Html, Css, Javascript, Bootstrap">
@@ -146,8 +146,8 @@
 	    width: 100%;
 	    border: 1px solid #aaa; 
 	    position: relative; 
-	    overflow: hidden;
- background:white;
+	    overflow: hidden; 
+	    background:white;
 	    }
 	    
 	    .caro .caro-item{
@@ -234,7 +234,7 @@ margin-bottom: 50px;
 	    flex-wrap: wrap; 
 	    Justify-content: space-evenly;
 	      }
-	        	.flex-card-cont div{
+	        	.flex-card-cont > div{
 	    	    width: 45%;
 	    	    }
 	    }
@@ -248,7 +248,7 @@ margin-bottom: 50px;
 	  border-radius:5px;
 	  box-shadow: 2px 4px 40px #ccc; 
 	  display: flex; 
-	  flex-flow: wrap;  
+	  flex-flow:  wrap;  
 	  }
 	 
 	    .card-cont img {
@@ -263,7 +263,7 @@ margin-bottom: 50px;
 	    .card-body {
 	    position: relative;
 	    padding: 7px; 
-	    width:90%;
+	    width:100%;
 	    margin: auto; 
 	    text-align:center;
 	    transition: .3s; 
@@ -284,6 +284,7 @@ margin-bottom: 50px;
 	  font-weight: ; 
 	  margin: 25px auto; 
 	  padding: 10px 30px;
+	  align-self: flex-end; 
 	  transition: .2s; 
 	  white-space: nowrap; 
 	  }
@@ -546,7 +547,7 @@ font-family: sans-serif;
 	padding: 5px; 
 	font-size: 1.1em;
 	text-align:center;
-	box-shadow: 0 -5px 20px #aaa; 
+	box-shadow: 0 -1px 4px #aaa; 
 	transition: .6s; 
 	opacity: 0;
 	font-weight: 300;
@@ -668,6 +669,9 @@ color: #666
 p{
 width: 100% !important
 }
+*{
+/*caret-color: transparent  */
+}
 	 </style>
  </head>
 	 <body onscroll= "scroll()">
@@ -715,19 +719,19 @@ width: 100% !important
 	<svg viewbox = "0,0 100,120" style= "position:absolute; z-index:-1">
 	<defs>
 	<lineargradient x1= "0%" x2 = "100%" y1= "0%" y2 = "100%"  id="mine" >
-	<stop offset= "30%" style= "stop-color: #006"/>
-	<stop offset= "100%" style= "stop-color: #0a0"/>
+	<stop offset= "30%" style= "stop-color: #00a"/>
+	<stop offset= "100%" style= "stop-color: #0c0"/>
 	</lineargradient>
 	</defs>
 	<path d= "M0,0 H100, V80, Q80,120 0,120 z" fill= "url(#mine)" />
 	</svg>
 	
 	
-	<div  class="caro" data-interval="3" data-delay="0" data-autoride="next"  >	
+	<div  class="caro" data-interval="3" data-autoride="next"  >	
 	<span  class="list"></span>
-<img  src= "design5.png" class="caro-item active"/>
-<img  src= "ui-ux-design.png" class="caro-item"/>
-<img  src= "guy1.jpg" class="caro-item" />
+		<img  src= "design5.png" class="caro-item active"/>
+		<img  src= "ui-ux-design.png" class="caro-item"/>
+	<img  src= "guy1.jpg" class="caro-item" />
 	<ul  class="caro-controls">
 	<li  class="fa fa-lg fa-chevron-circle-left" data-parent = "#caro" data-slide="prev"></li>
 	<li  class="fa fa-lg fa-chevron-circle-right" data-parent = "#caro" data-slide="next"></li>
@@ -784,7 +788,7 @@ Reason why i love Lionel Messi
 </div>
 </div>
 <hr>
-<p>
+<p style= "width:100%">
 Has anyone in the history of football captured our hearts quite like Lionel Andres Messi?
  <h4>Overcoming obstacles since his childhood</h4>
 
@@ -844,8 +848,8 @@ share <b>1</b>
 	<div  class="card-body">
 	<h3>Design</h3>
 I can give a beautiful looking web design to a client, i also give a good responsive page that fits all screen sizes.
-	<a href="#" class="card-btn">Read more</a>
 	</div>
+	<a href="#" class="card-btn">Read more</a>
 	</div>
 	
 	<div  class="card-cont">
@@ -853,8 +857,8 @@ I can give a beautiful looking web design to a client, i also give a good respon
 	<div  class="card-body">
 	<h3>Experience</h3>
  Html, Css, Javascript, jQuery, Sass, Bootstrap, ReactJS, NodeJS, Php, MySQL
-	<a href="#" class="card-btn">Read more</a>
 	</div>
+	<a href="#" class="card-btn">Read more</a>
 	</div>
 	
 	<!-- Card end -->
@@ -952,6 +956,7 @@ In life there is nothing impossible to do, when it gets tough all it requires is
 	
 	<a href="#"  id="toTop"><i  class="fa fa-angle-up"></i></a>
 	</div>
+	
 	<div  id="cookieCont">
 	<div  id="cookie">
 	<button  class="cl"><i  class="fa fa-close"></i></button>
@@ -961,8 +966,10 @@ In life there is nothing impossible to do, when it gets tough all it requires is
 	<button  class="accept">Accept</button>
 	</div>
 	</div>
+	
 
 	<script>
+	
 	
 	document.querySelectorAll(".more")
 	.forEach(x=>{
@@ -1088,7 +1095,6 @@ document.
 querySelectorAll(".caro")
 .forEach((caro) => {
 let speed = $(caro).attr("data-interval");
-let delay= caro.getAttribute("data-delay");
 let ride= caro.getAttribute("data-autoride").trim();
 
 let images = caro.querySelectorAll(".caro-item");
@@ -1120,9 +1126,8 @@ ele.addEventListener("click", (e)=>{
 carousel.slideTo(parseInt(num));
    })
 })
-setTimeout(()=>{
+
 ride && carousel.startTimer(ride)
-}, delay*1000);
 
 
 
@@ -1134,8 +1139,8 @@ finalX = e.touches[0].clientX;
 
 caro.addEventListener("touchend", function(e){
 if(initialX - finalX>0) carousel.slide("next");
-else if((initialX - finalX)<0) carousel.slide("prev");
-initialX = false, finalX = false; 
+else if(initialX - finalX<0) carousel.slide("prev");
+initialX = false; 
 })
 
 
