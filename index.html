@@ -716,14 +716,14 @@ width: 100% !important
 	
 	
 	
-	<svg viewbox = "0,0 100,120" style= "position:absolute; z-index:-1">
+	<svg viewbox = "0,0 100,160" style= "position:absolute; z-index:-1">
 	<defs>
 	<lineargradient x1= "0%" x2 = "100%" y1= "0%" y2 = "100%"  id="mine" >
 	<stop offset= "30%" style= "stop-color: #00a"/>
 	<stop offset= "100%" style= "stop-color: #0c0"/>
 	</lineargradient>
 	</defs>
-	<path d= "M0,0 H100, V80, Q80,120 0,120 z" fill= "url(#mine)" />
+	<path d= "M0,0 H100, V80, Q80,160 0,160 z" fill= "url(#mine)" />
 	</svg>
 	
 	
@@ -883,7 +883,7 @@ I can give a beautiful looking web design to a client, i also give a good respon
     <b>State of Origin: </b>Imo state
     </div>
     <div>
-    <b>Mobile number: </b><a href="tel:08130770603">08130770603</a></div>
+    <b>Mobile number: </b><a href="tel:+2347040158854">+2347040158854</a></div>
     </div>
     <div>
     <b>Email: </b><a href="mailto:irokatochukwu@gmail.com">irokatochukwu@gmail.com</a>
@@ -906,7 +906,7 @@ In life there is nothing impossible to do, when it gets tough all it requires is
 <div class="prof-contact"  id="contact">
 <h3>CONTACT</h3>
 <br>
-<a href="tel:08130770603">Call <i class="fa fa-phone"></i>: 08130770603</a> <br><br>
+<a href="tel:+2347040158854">Call <i class="fa fa-phone"></i>: +2347040158854</a> <br><br>
 <a href="mailto:irokatochukwu@gmail.com?body=hello everyone">Email: irokatochukwu@gmail.com</a> <br><br>
     <form method="post" action="" onsubmit= "return form(this)">
     <div>
@@ -996,7 +996,7 @@ cookieCont.classList.remove('show');
 	    }
 	})
 	
-	document.querySelectorAll(".card-btn").forEach(x=>{
+	document.querySelectorAll(".card-btn, .fa-comment, .fa-reply, .fa-share").forEach(x=>{
 	x.onclick = function(e) {
 	e.preventDefault();
 alert("The page is not available right now.");
@@ -1052,7 +1052,7 @@ this.ride = ride;
    }
 slide(x) {
 	if(x == "prev") {
-	this.index = (this	.index===0)? this.max : this.index-1; 
+	this.index = (this.index===0)? this.max : this.index-1; 
 	}
 	if(x == "next") {
 	this.index = (this.index===this.max)? 0 : this.index+1; 
