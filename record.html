@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+	 <title>Students' Record</title>
+	 <meta charset="UTF-8"/>
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	 <link rel="stylesheet" href="" type="text/css"/>
+	 <style>
+	 :root{
+	 	font-family: sans-serif;
+	 }
+	 	table{
+	 		width: 100%;
+	 		border: 1px solid #eee;
+	 		border-collapse: collapse;
+	 		margin-bottom: 200px;
+	 		color: #333;
+	 	}
+	 	th, td{
+	 		text-align: center;
+	 		border: 1px solid #eee;
+	 		padding: 5px 0;
+	 	}
+	 	tr:has(td){
+	 		opacity: 0;
+	 		transform: translatex(-100px);
+	 		animation: tr .3s forwards .3s;
+	 	}
+	 	@keyframes tr{
+	 	 to {
+	 	 	opacity: 1;
+	 	 	transform: translatex(0px);
+	 	 }
+	 	}
+	 	tbody tr:nth-child(even){
+	 		background: #f1f1f1
+	 	}
+	 	input {
+	 		border: 1px solid #aaa;
+	 		border-radius: 3px;
+	 		padding: 10px;
+	 		display: block;
+	 		margin: 15px auto;
+	 		transition: .2s;
+	 		background: none;
+	 	}
+	 	input:focus{
+	 		outline: none;
+	 		box-shadow: 0 0 0 2px #5cf;
+	 		border: 1px solid #5cf;
+	 	}
+	 	button{
+	 		background: black;
+	 		color: white;
+	 		padding: 10px 25px;
+	 		border: none;
+	 		border-radius: 2px;
+			font-weight: bold;
+			font-size: 1em;
+	 		box-shadow: 0 1px 1px #aaa;
+	 		display: block;
+	 		margin: 2px auto 10px;
+	 		transition: .1s
+	 	}
+	 	button:active{
+	 		scale: 0.90;
+	 		background: gray
+	 	}
+	 	#fixed-bottom{
+	 		position: fixed;
+	 		bottom: 0;
+	 		width: 100%;
+	 		background: white;
+	 		left: 0;
+	 		box-shadow: 0 -1px 5px #ccc;
+	 	}
+	 </style>
+ </head>
+	 <body>
+	
+			<table>
+				<thead>
+					<tr>
+						<th>S/N</th>
+						<th>POSITION</th>
+						<th>SCORE</th>
+					</tr>
+				</thead>
+				<tbody  id="tbody">
+				</tbody>
+			</table>
+			
+			<form id="fixed-bottom" onSubmit="event.preventDefault(); run(undefined, true)">
+	 			<input  id="input" required/>
+				<button>Sort Record</button>
+			</form>
+			
+			<script>
+			
+		
+try{
+
+	const input = document.querySelector("#input");
+	const availableStorage = ()=>{
+		if(window.localStorage){
+		 return window.localStorage
+		} 
+		return window.sessionStorage
+	}
+		function run(val=input.value, save){
+				if(!val?.trim()) return;
+				if(save){
+					availableStorage().setItem("scores", input.value.trim())
+				}
+				let arr = (val).trim().replace(/^\D+|\D+$/g, "").split(/\s*\D+\s*|\s+/).map((x,i)=>{
+					return {id: i+1, score: +x}
+				});			
+				arr.sort((a,b)=>{
+					return a.score > b.score ? -1 : 1
+				});
+				arr = arr.map((a,i,w)=>{
+					a.position = putSuffix(i+1);
+					if(i>0 && a.score == w[i-1].score){
+						a.position = w[i-1].position;
+					}
+					return a
+				})
+				const tbody = document
+				.getElementById("tbody")
+				tbody.innerHTML = ""
+				let j = 0;
+				appendFn()
+				function appendFn(){
+					let student = arr[j]
+					const tr = document.createElement("tr");
+					const td1 = document.createElement("td");
+					const td2 = document.createElement("td");
+					const td3 = document.createElement("td");
+					td1.innerHTML = student.id;
+					td2.innerHTML= student.position;
+					td3.innerHTML = student.score;
+					tr.append(td1)
+					tr.append(td2)
+					tr.append(td3)
+					tbody.append(tr)
+					if(j < arr.length-1){
+						j++ 
+						setTimeout(appendFn, 100)
+					}
+				}
+		}
+		
+		
+		function putSuffix(val){
+			let str = val+"";
+			let last = str[str.length-1]
+			let suffix = "th"
+			if(last == "1") suffix = "st";
+			else if(last == "2") suffix = "nd";
+			else if(last == "3") suffix = "rd";
+			return str+"<sup>"+suffix+"</sup>"
+		}
+		
+		let data = availableStorage().getItem("scores");
+		if(data?.trim()){
+			run(data)
+		}
+	
+} catch(e) {
+	alert(e)
+}
+			</script>
+	 </body>
+ </html>
