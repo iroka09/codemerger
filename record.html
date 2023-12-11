@@ -15,19 +15,37 @@
 	 		border-collapse: collapse;
 	 		margin-bottom: 200px;
 	 		color: #333;
+	 		overflow: scroll;
 	 	}
 	 	th, td{
 	 		text-align: center;
 	 		border: 1px solid #eee;
 	 		padding: 5px 0;
 	 	}
+	 	tr:has(th) {
+	 		background: black;
+	 		color: white; 
+	 	}
 	 	tr:has(td){
 	 		opacity: 0;
 	 		transform: translatex(-100px);
-	 		animation: tr .3s forwards .3s;
+	 		animation: tr 1s forwards .3s;
+	 	}
+	 	tr:has(td):hover{
+	 		border: 2px solid blue !important;
+	 		font-weight: 900; 
+	 		font-size: larger
 	 	}
 	 	@keyframes tr{
-	 	 to {
+	 	 50% {
+	 	 	opacity: 1;
+	 	 	transform: translatex(20px);
+	 	 }
+	 	 90% {
+	 	 	opacity: 1;
+	 	 	transform: translatex(-8px);
+	 	 }
+	 	 100% {
 	 	 	opacity: 1;
 	 	 	transform: translatex(0px);
 	 	 }
@@ -40,9 +58,8 @@
 	 		border-radius: 3px;
 	 		padding: 10px;
 	 		display: block;
-	 		margin: 15px auto;
 	 		transition: .2s;
-	 		background: none;
+	 		background: white; 
 	 	}
 	 	input:focus{
 	 		outline: none;
@@ -52,14 +69,13 @@
 	 	button{
 	 		background: black;
 	 		color: white;
-	 		padding: 10px 25px;
+	 		display: block; 
+	 		padding:  10px;
 	 		border: none;
 	 		border-radius: 2px;
 			font-weight: bold;
 			font-size: 1em;
 	 		box-shadow: 0 1px 1px #aaa;
-	 		display: block;
-	 		margin: 2px auto 10px;
 	 		transition: .1s
 	 	}
 	 	button:active{
@@ -68,11 +84,25 @@
 	 	}
 	 	#fixed-bottom{
 	 		position: fixed;
+	 		display: flex; 
+	 		flex-direction: column; 
+	 		align-items: center; 
+	 		justify-content: center; 
+	 	 	gap: 6px; 
+	 	 	padding: 10px 5px; 
 	 		bottom: 0;
-	 		width: 100%;
-	 		background: white;
+	 		background: #2882a8; 
 	 		left: 0;
+	 		right: 0;
 	 		box-shadow: 0 -1px 5px #ccc;
+	 	}
+	 	@media screen and (min-width: 300px){
+	 	 #fixed-bottom {
+	 		flex-direction: row; 
+	 	 }
+	 	 #fixed-bottom input {
+	 	 	flex: 1;
+	 	 }
 	 	}
 	 </style>
  </head>
@@ -101,18 +131,21 @@
 try{
 
 	const input = document.querySelector("#input");
-	const availableStorage = ()=>{
+	
+	function availableStorage(){
 		if(window.localStorage){
 		 return window.localStorage
 		} 
 		return window.sessionStorage
 	}
+	
 		function run(val=input.value, save){
-				if(!val?.trim()) return;
+				val = val?.trim()
+				if(!val) return;
 				if(save){
-					availableStorage().setItem("scores", input.value.trim())
+					availableStorage().setItem("scores", val)
 				}
-				let arr = (val).trim().replace(/^\D+|\D+$/g, "").split(/\s*\D+\s*|\s+/).map((x,i)=>{
+				let arr = val.replace(/^\D+|\D+$/g, "").split(/\s*\D+\s*|\s+/).map((x,i)=>{
 					return {id: i+1, score: +x}
 				});			
 				arr.sort((a,b)=>{
@@ -153,16 +186,17 @@ try{
 		
 		function putSuffix(val){
 			let str = val+"";
+			let first = str[0];
 			let last = str[str.length-1]
 			let suffix = "th"
-			if(last == "1") suffix = "st";
-			else if(last == "2") suffix = "nd";
-			else if(last == "3") suffix = "rd";
+			if(last == "1" && first !== "1") suffix = "st";
+			else if(last == "2" && first !== "1") suffix = "nd";
+			else if(last == "3" && first !== "1") suffix = "rd";
 			return str+"<sup>"+suffix+"</sup>"
 		}
 		
-		let data = availableStorage().getItem("scores");
-		if(data?.trim()){
+		let data = availableStorage().getItem("scores")?.trim();
+		if(data){
 			run(data)
 		}
 	
