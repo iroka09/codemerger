@@ -9,11 +9,15 @@
 	 :root{
 	 	font-family: sans-serif;
 	 }
+	 .container{
+	 	margin: 5px 0 200px;
+	 }	
 	 	table{
 	 		width: 100%;
+	 		max-width: 500px;
+	 		margin: auto;
 	 		border: 1px solid #eee;
 	 		border-collapse: collapse;
-	 		margin-bottom: 200px;
 	 		color: #333;
 	 		overflow: scroll;
 	 	}
@@ -100,6 +104,21 @@
 	 	 	flex: 1;
 	 	 }
 	 	}
+	
+	 	.info img {
+	 		width: 100%;
+	 		max-width: 400px;
+	 		margin: 3px 0;
+	 	}
+	 	.info .school-name{
+	 		color: #05b;
+	 		font-family: cursive;
+	 	}
+	 	.school-name span{
+	 		color: white;
+	 		background: #05b;
+	 		padding: 5px;
+	 	}
 	 	noscript{
 	 		background: #fee; 
 	 		border: 1px solid #fcc;
@@ -110,13 +129,19 @@
 	 		width: fit-content;
 	 		max-width: 300px; 
 	 		margin: 10px auto; 
-	 		border-radius: 3px; 
-	 		
+	 		border-radius: 3px; 	 		
 	 	}
 	 </style>
  </head>
 	 <body>
 		<noscript>This webpage will not work on this browser, please use a higher browser or enable javascript.</noscript>
+		<div  class="info">
+		<div>
+			<h1  class="school-name"><span>Golden</span> Academy Secondary School (Ajaka)</h1>			
+			</div>
+			<img src= "golden_acad.jpg" loading= "lazy"/>
+			</div>
+			
 			<div  class="container">
 			<table>
 				<thead>
