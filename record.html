@@ -4,13 +4,16 @@
 	 <title>Students' Record</title>
 	 <meta charset="UTF-8"/>
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	 <link rel="stylesheet" href="" type="text/css"/>
+	 <!--
+	 <link rel="stylesheet" href="golden-acad.css" type="text/css"/>
+	 <script src= "golden-acad.js" defer></script>
+	 -->
 	 <style>
 	 :root{
 	 	font-family: sans-serif;
 	 	user-select: none;
-	 	--primary-color: #06b;
-	 	--primary-color-light: #06b;
+	 	--primary-color: #08f;
+	 	--primary-color-light: var(--primary-color);
 	 	--primary-color-lighter: #adf;
 	 }
 	 body{
@@ -32,7 +35,6 @@
 	 	}
 	 	.info .school-name{
 	 		color: var(--primary-color);
-	 		font-family: cursive;
 	 		text-align: center;
 	 		font-size: large;
 	 	}
@@ -73,20 +75,20 @@
 	 	}
 	 	tbody tr{
 	 		opacity: 0;
-	 		transform: translatex(-100px);
+	 		transform: scalex(0);
 	 		animation: tr 1s forwards .3s;
 	 	}
 	 	@keyframes tr{	 	 	
 	 	 100% {
 	 	 	opacity: 1;
-	 	 	transform: translatex(0px);
+	 	 	transform: scalex(1);
 	 	 }
 	 	}
 	 	tr td:first-child {
 	 	  background: rgba(0,100,200,.08)
 	 	}
 	 	tbody tr:hover{
-	 		border: 2px solid var(--primary-color-light) !important;
+	 		border-block: 2px solid var(--primary-color-light) !important;
 	 		font-weight: 900; 
 	 		font-size: larger
 	 	}
@@ -106,8 +108,8 @@
 	 	}
 	 	input:focus{
 	 		outline: none;
-	 		box-shadow: 0 0 0 2px var(--primary-color-lighter);
-	 		border: 1px solid var(--primary-color-lighter);
+	 		box-shadow: 0 0 0 2px var(--primary-color-light);
+	 		border: 1px solid var(--primary-color-light);
 	 	}
 	 	button{
 	 		background: var(--primary-color-light);
